@@ -20,7 +20,7 @@ public class ConnectionSQLite {
             this.conn = DriverManager.getConnection(url);
 
             // Cria a tabela se não existir
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS nome_da_tabela ("
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS clothes_tb ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,"
                     + "name TEXT (48) NOT NULL,"
                     + "description TEXT (256),"
@@ -48,7 +48,7 @@ public class ConnectionSQLite {
     }
 
     //Método para realiar a conexão com o banco de dados
-    public boolean desconectar() {
+    public boolean disconnect() {
         try {
             if (this.conn != null && !this.conn.isClosed()) {
                 this.conn.close();
