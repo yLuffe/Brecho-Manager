@@ -1,8 +1,8 @@
 package Main;
 
 import Database.ConnectionSQLite;
-import Model.Clothing;
-import Model.ClothingDAO;
+import View.MainScreen;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UIManager;
 
 public class Main {
@@ -13,19 +13,20 @@ public class Main {
         UIManager.put("OptionPane.yesButtonText", "Sim");
         UIManager.put("OptionPane.noButtonText", "Não");
 
+        // Ativa o tema Dracula
+        FlatMacLightLaf.setup();
+
+        // Mostra a tela inicial
+        new MainScreen().setVisible(true);
+
         // Chamando banco de dados e conectando
         ConnectionSQLite connect = new ConnectionSQLite();
         connect.connect();
 
-        
-        
-        
-        
-        
         // Registrar o shutdown hook para desconectar a conexão
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             connect.disconnect();
         }));
     }
-    
+
 }
