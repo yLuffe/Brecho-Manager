@@ -31,6 +31,8 @@ public class ClothingDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Falha ao Inserir
+        } finally {
+            conn.disconnect(); // Feche a conexão no bloco finally
         }
     }
 
@@ -55,6 +57,8 @@ public class ClothingDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn.disconnect(); // Feche a conexão no bloco finally
         }
         return null;
     }
@@ -78,6 +82,8 @@ public class ClothingDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            conn.disconnect(); // Feche a conexão no bloco finally
         }
     }
 
@@ -92,6 +98,8 @@ public class ClothingDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            conn.disconnect(); // Feche a conexão no bloco finally
         }
     }
 
@@ -116,6 +124,8 @@ public class ClothingDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn.disconnect(); // Feche a conexão no bloco finally
         }
         return clothingList;
     }

@@ -14,14 +14,28 @@ public class Clothing {
     private boolean newClothes;
     private String customerName;
 
-    // Constuctor
+    // Constuctor Vazio
     public Clothing() {
     }
 
-    public Clothing(int id, String name, String descr, String category, String size, String color, double price, boolean consigned, boolean newClothes, String customerName) {
+    // Construtor sem ID
+    public Clothing(String name, String description, String category, String size, String color, double price, boolean consigned, boolean newClothes, String customerName) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.size = size;
+        this.color = color;
+        this.price = price;
+        this.consigned = consigned;
+        this.newClothes = newClothes;
+        this.customerName = customerName;
+    }
+
+    // Construtor Completo
+    public Clothing(int id, String name, String description, String category, String size, String color, double price, boolean consigned, boolean newClothes, String customerName) {
         this.id = id;
         this.name = name;
-        this.description = descr;
+        this.description = description;
         this.category = category;
         this.size = size;
         this.color = color;
@@ -111,6 +125,29 @@ public class Clothing {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public void clothingValidation() throws IllegalArgumentException {
+
+        if (this.name == null || this.color.isBlank()) {
+            throw new IllegalArgumentException("Insira um nome para a roupa!");
+        }
+
+        if (this.category == null || this.color.isBlank()) {
+            throw new IllegalArgumentException("Insira uma categoria para roupa");
+        }
+
+        if (this.size == null || this.color.isBlank()) {
+            throw new IllegalArgumentException("Insira um tamanho para roupa");
+        }
+
+        if (this.color == null || this.color.isBlank()) {
+            throw new IllegalArgumentException("Insira uma cor para roupa");
+        }
+
+        if (this.price == 0.0) {
+            throw new IllegalArgumentException("Insira um valor para roupa");
+        }
+    }   
 
     // toString
     @Override

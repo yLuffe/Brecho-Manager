@@ -1,6 +1,8 @@
 package Main;
 
 import Database.ConnectionSQLite;
+import Model.Clothing;
+import Model.ClothingDAO;
 import javax.swing.UIManager;
 
 public class Main {
@@ -15,9 +17,17 @@ public class Main {
         ConnectionSQLite connect = new ConnectionSQLite();
         connect.connect();
 
+        
+        Clothing clothes = new Clothing(1, "Casaco de Veludo", "Manga curta", "Inverno", "G", "Preto", 89.9, false, true, "Renner");
+        
+        new ClothingDAO().addClothing(clothes);
+        
+        
+        
         // Registrar o shutdown hook para desconectar a conexão
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             connect.disconnect();
         }));
     }
+    
 }
