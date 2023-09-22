@@ -19,31 +19,33 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMainTabbedPane = new javax.swing.JTabbedPane();
         jPanelMainScreen = new javax.swing.JPanel();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        panelOptions = new javax.swing.JPanel();
-        btnPaneOne = new javax.swing.JButton();
-        btnPaneTwo = new javax.swing.JButton();
-        panelCards = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jMainSplitPane = new javax.swing.JSplitPane();
+        panelOptions = new View.Components.DropShadow.PanelShadow();
+        jBtnOne = new javax.swing.JButton();
+        jBtnTwo = new javax.swing.JButton();
+        panelCards = new View.Components.DropShadow.PanelShadow();
+        shadowPanelOne = new View.Components.DropShadow.PanelShadow();
+        jLabel1 = new javax.swing.JLabel();
+        shadowPanelTwo = new View.Components.DropShadow.PanelShadow();
+        jLabel2 = new javax.swing.JLabel();
         jPanelCustomers = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelOptions.setShadowOpacity(0.6F);
+        panelOptions.setShadowSize(4);
 
-        btnPaneOne.setText("Pane 1");
-        btnPaneOne.addActionListener(new java.awt.event.ActionListener() {
+        jBtnOne.setText("Panel One");
+        jBtnOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaneOneActionPerformed(evt);
+                jBtnOneActionPerformed(evt);
             }
         });
 
-        btnPaneTwo.setText("Pane 2");
-        btnPaneTwo.addActionListener(new java.awt.event.ActionListener() {
+        jBtnTwo.setText("Panel Two");
+        jBtnTwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaneTwoActionPerformed(evt);
+                jBtnTwoActionPerformed(evt);
             }
         });
 
@@ -52,78 +54,91 @@ public class MainScreen extends javax.swing.JFrame {
         panelOptionsLayout.setHorizontalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(53, 53, 53)
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPaneTwo)
-                    .addComponent(btnPaneOne))
-                .addContainerGap(155, Short.MAX_VALUE))
+                    .addComponent(jBtnOne)
+                    .addComponent(jBtnTwo))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(btnPaneOne)
-                .addGap(66, 66, 66)
-                .addComponent(btnPaneTwo)
-                .addContainerGap(356, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jBtnOne)
+                .addGap(30, 30, 30)
+                .addComponent(jBtnTwo)
+                .addContainerGap(466, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(panelOptions);
+        jMainSplitPane.setLeftComponent(panelOptions);
 
-        panelCards.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         panelCards.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 842, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
-        );
+        shadowPanelOne.setShadowOpacity(0.6F);
+        shadowPanelOne.setShadowSize(4);
 
-        panelCards.add(jPanel1, "jCard1");
+        jLabel1.setText("jLabel1");
 
-        jLabel4.setText("esse é o panel 2");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jLabel4)
-                .addContainerGap(453, Short.MAX_VALUE))
+        javax.swing.GroupLayout shadowPanelOneLayout = new javax.swing.GroupLayout(shadowPanelOne);
+        shadowPanelOne.setLayout(shadowPanelOneLayout);
+        shadowPanelOneLayout.setHorizontalGroup(
+            shadowPanelOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shadowPanelOneLayout.createSequentialGroup()
+                .addContainerGap(442, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(390, 390, 390))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(jLabel4)
-                .addContainerGap(321, Short.MAX_VALUE))
+        shadowPanelOneLayout.setVerticalGroup(
+            shadowPanelOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shadowPanelOneLayout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(jLabel1)
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
-        panelCards.add(jPanel2, "jCard2");
+        panelCards.add(shadowPanelOne, "card1");
 
-        jSplitPane1.setRightComponent(panelCards);
+        shadowPanelTwo.setShadowOpacity(0.6F);
+        shadowPanelTwo.setShadowSize(4);
+
+        jLabel2.setText("aaaaaaaaaa");
+
+        javax.swing.GroupLayout shadowPanelTwoLayout = new javax.swing.GroupLayout(shadowPanelTwo);
+        shadowPanelTwo.setLayout(shadowPanelTwoLayout);
+        shadowPanelTwoLayout.setHorizontalGroup(
+            shadowPanelTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shadowPanelTwoLayout.createSequentialGroup()
+                .addGap(409, 409, 409)
+                .addComponent(jLabel2)
+                .addContainerGap(394, Short.MAX_VALUE))
+        );
+        shadowPanelTwoLayout.setVerticalGroup(
+            shadowPanelTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shadowPanelTwoLayout.createSequentialGroup()
+                .addGap(274, 274, 274)
+                .addComponent(jLabel2)
+                .addContainerGap(313, Short.MAX_VALUE))
+        );
+
+        panelCards.add(shadowPanelTwo, "card2");
+
+        jMainSplitPane.setRightComponent(panelCards);
 
         javax.swing.GroupLayout jPanelMainScreenLayout = new javax.swing.GroupLayout(jPanelMainScreen);
         jPanelMainScreen.setLayout(jPanelMainScreenLayout);
         jPanelMainScreenLayout.setHorizontalGroup(
             jPanelMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainScreenLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jSplitPane1)
-                .addGap(8, 8, 8))
+                .addContainerGap()
+                .addComponent(jMainSplitPane)
+                .addContainerGap())
         );
         jPanelMainScreenLayout.setVerticalGroup(
             jPanelMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainScreenLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jSplitPane1)
-                .addGap(8, 8, 8))
+                .addContainerGap()
+                .addComponent(jMainSplitPane)
+                .addContainerGap())
         );
 
         jMainTabbedPane.addTab("Tela Inicial", jPanelMainScreen);
@@ -158,13 +173,13 @@ public class MainScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPaneOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaneOneActionPerformed
-        cardLayout.show(panelCards, "jCard1");
-    }//GEN-LAST:event_btnPaneOneActionPerformed
+    private void jBtnOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOneActionPerformed
+        cardLayout.show(panelCards, "card1");
+    }//GEN-LAST:event_jBtnOneActionPerformed
 
-    private void btnPaneTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaneTwoActionPerformed
-        cardLayout.show(panelCards, "jCard2");
-    }//GEN-LAST:event_btnPaneTwoActionPerformed
+    private void jBtnTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTwoActionPerformed
+        cardLayout.show(panelCards, "card2");
+    }//GEN-LAST:event_jBtnTwoActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -194,17 +209,18 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPaneOne;
-    private javax.swing.JButton btnPaneTwo;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jBtnOne;
+    private javax.swing.JButton jBtnTwo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSplitPane jMainSplitPane;
     private javax.swing.JTabbedPane jMainTabbedPane;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelCustomers;
     private javax.swing.JPanel jPanelMainScreen;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JPanel panelCards;
-    private javax.swing.JPanel panelOptions;
+    private View.Components.DropShadow.PanelShadow panelCards;
+    private View.Components.DropShadow.PanelShadow panelOptions;
+    private View.Components.DropShadow.PanelShadow shadowPanelOne;
+    private View.Components.DropShadow.PanelShadow shadowPanelTwo;
     // End of variables declaration//GEN-END:variables
 }
