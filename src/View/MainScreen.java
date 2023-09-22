@@ -25,7 +25,6 @@ public class MainScreen extends javax.swing.JFrame {
         btnPaneTwo = new javax.swing.JButton();
         panelCards = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanelCustomers = new javax.swing.JPanel();
@@ -53,21 +52,20 @@ public class MainScreen extends javax.swing.JFrame {
         panelOptionsLayout.setHorizontalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPaneTwo)
-                    .addGroup(panelOptionsLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(btnPaneOne)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                    .addComponent(btnPaneOne))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGap(126, 126, 126)
+                .addGap(123, 123, 123)
                 .addComponent(btnPaneOne)
-                .addGap(63, 63, 63)
+                .addGap(66, 66, 66)
                 .addComponent(btnPaneTwo)
-                .addContainerGap(360, Short.MAX_VALUE))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(panelOptions);
@@ -75,23 +73,15 @@ public class MainScreen extends javax.swing.JFrame {
         panelCards.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         panelCards.setLayout(new java.awt.CardLayout());
 
-        jLabel3.setText("ESSE É O PANEL 1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(399, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(336, 336, 336))
+            .addGap(0, 842, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(jLabel3)
-                .addContainerGap(385, Short.MAX_VALUE))
+            .addGap(0, 597, Short.MAX_VALUE)
         );
 
         panelCards.add(jPanel1, "jCard1");
@@ -112,7 +102,7 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addComponent(jLabel4)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         panelCards.add(jPanel2, "jCard2");
@@ -124,16 +114,16 @@ public class MainScreen extends javax.swing.JFrame {
         jPanelMainScreenLayout.setHorizontalGroup(
             jPanelMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainScreenLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(8, 8, 8)
                 .addComponent(jSplitPane1)
-                .addContainerGap())
+                .addGap(8, 8, 8))
         );
         jPanelMainScreenLayout.setVerticalGroup(
             jPanelMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainScreenLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(8, 8, 8)
                 .addComponent(jSplitPane1)
-                .addContainerGap())
+                .addGap(8, 8, 8))
         );
 
         jMainTabbedPane.addTab("Tela Inicial", jPanelMainScreen);
@@ -142,7 +132,7 @@ public class MainScreen extends javax.swing.JFrame {
         jPanelCustomers.setLayout(jPanelCustomersLayout);
         jPanelCustomersLayout.setHorizontalGroup(
             jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1104, Short.MAX_VALUE)
         );
         jPanelCustomersLayout.setVerticalGroup(
             jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +150,7 @@ public class MainScreen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 54, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jMainTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -206,13 +196,13 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPaneOne;
     private javax.swing.JButton btnPaneTwo;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTabbedPane jMainTabbedPane;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelCustomers;
     private javax.swing.JPanel jPanelMainScreen;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel panelCards;
     private javax.swing.JPanel panelOptions;
