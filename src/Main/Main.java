@@ -18,9 +18,7 @@ public class Main {
         connect.connect();
 
         
-        Clothing clothes = new Clothing(1, "Casaco de Veludo", "Manga curta", "Inverno", "G", "Preto", 89.9, false, true, "Renner");
         
-        new ClothingDAO().addClothing(clothes);
         
         
         
