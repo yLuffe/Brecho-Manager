@@ -48,7 +48,7 @@ public class ConnectionSQLite {
     }
 
     //Método para realiar a conexão com o banco de dados
-    public boolean desconectar() {
+    public boolean disconnect() {
         try {
             if (this.conn != null && !this.conn.isClosed()) {
                 this.conn.close();
