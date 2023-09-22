@@ -10,6 +10,7 @@ public class ControllerClothing {
     ClothingDAO database = new ClothingDAO();
 
     //MainScreen mainView = null
+    
     // Empty Constructor
     public ControllerClothing() {
     }
@@ -19,6 +20,7 @@ public class ControllerClothing {
 //        // Atualizar Tabela
 //        this.MainScreen.updateTable(this.listClothes(selectedFilter));
 //    }
+    
     // Create
     public boolean createClothing(Clothing clothes) throws Exception {
         try {
@@ -46,6 +48,7 @@ public class ControllerClothing {
                 /*
                 
                 Adicionar Filtros com Collectios
+                Filtro Id / Nome / Categoria / Preço
                 
                  */
             }
