@@ -65,7 +65,7 @@ public class ConnectionSQLite {
     }
 
     //Cria um PreparedStatement com a consulta SQL dada
-    public PreparedStatement criarPreparedStatement(String sql) {
+    public PreparedStatement createPreparedStatement(String sql) {
         try {
             return this.conn.prepareStatement(sql);
         } catch (SQLException e) {
