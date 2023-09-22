@@ -5,7 +5,7 @@ public class Clothing {
     // Clothing Attributes
     private int id;
     private String name;
-    private String descr;
+    private String description;
     private String category;
     private String size;
     private String color;
@@ -21,7 +21,7 @@ public class Clothing {
     public Clothing(int id, String name, String descr, String category, String size, String color, double price, boolean consigned, boolean newClothes, String customerName) {
         this.id = id;
         this.name = name;
-        this.descr = descr;
+        this.description = descr;
         this.category = category;
         this.size = size;
         this.color = color;
@@ -48,12 +48,12 @@ public class Clothing {
         this.name = name;
     }
 
-    public String getDescr() {
-        return descr;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCategory() {
@@ -116,7 +116,7 @@ public class Clothing {
     @Override
     public String toString() {
         return "Nome: " + name + "\n"
-                + "Descrição: " + descr + "\n"
+                + "Descrição: " + description + "\n"
                 + "Categoria: " + category + "\n"
                 + "Tamanho: " + size + "\n"
                 + "Cor: " + color + "\n"
