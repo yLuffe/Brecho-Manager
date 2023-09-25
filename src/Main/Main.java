@@ -4,6 +4,7 @@ import Database.ConnectionSQLite;
 import View.MainScreen;
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import javax.swing.UIManager;
+import Model.Filter.ColorFilter;
 
 public class Main {
 
@@ -18,7 +19,7 @@ public class Main {
 
         // Mostra a tela inicial
         new MainScreen().setVisible(true);
-
+        
         // Chamando banco de dados e conectando
         ConnectionSQLite connect = new ConnectionSQLite();
         connect.connect();
