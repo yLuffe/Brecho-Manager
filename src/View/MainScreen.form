@@ -102,23 +102,16 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="buttonRemoveClothes" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                          <Component id="buttonEditClothes" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                          <Component id="buttonAddClothes" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="buttonViewClothes" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jTituloLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="2" attributes="0">
+                                  <Component id="jTituloLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTituloLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonViewClothes" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="buttonAddClothes" alignment="2" max="32767" attributes="0"/>
+                                  <Component id="buttonEditClothes" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="buttonRemoveClothes" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -127,7 +120,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTituloLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jTituloLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="buttonViewClothes" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Component id="buttonAddClothes" min="-2" pref="50" max="-2" attributes="0"/>
@@ -135,7 +130,7 @@
                               <Component id="buttonEditClothes" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Component id="buttonRemoveClothes" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace pref="318" max="32767" attributes="0"/>
+                              <EmptySpace pref="324" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -146,7 +141,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="JetBrains Mono" size="24" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Stock Manager"/>
+                        <Property name="text" type="java.lang.String" value="Desapegos da"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="buttonViewClothes">
@@ -204,6 +199,14 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveClothesActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jTituloLabel1">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="JetBrains Mono" size="24" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Camis"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -391,7 +394,7 @@
                             <Component class="javax.swing.JTable" name="jClothesTable">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="10" rowCount="0">
+                                  <Table columnCount="11" rowCount="98">
                                     <Column editable="false" title="ID" type="java.lang.Object"/>
                                     <Column editable="false" title="Pe&#xe7;a" type="java.lang.Object"/>
                                     <Column editable="false" title="Pre&#xe7;o" type="java.lang.Object"/>
@@ -402,6 +405,7 @@
                                     <Column editable="false" title="Consigna&#xe7;&#xe3;o" type="java.lang.Object"/>
                                     <Column editable="false" title="Novo" type="java.lang.Object"/>
                                     <Column editable="false" title="Cliente" type="java.lang.Object"/>
+                                    <Column editable="false" title="Dispon&#xed;vel" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="autoResizeMode" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -459,8 +463,14 @@
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                   </TableColumnModel>
                                 </Property>
+                                <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>
