@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Clothing;
 import Model.ClothingDAO;
+import View.MainScreen;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -9,18 +10,18 @@ public class ControllerClothing {
 
     ClothingDAO database = new ClothingDAO();
 
-    //MainScreen mainView = null
-    
+    MainScreen mainView = null;
     // Empty Constructor
     public ControllerClothing() {
+
     }
 
-//    public ControllerClothing(MainScreen mainScreen) {
-//        this.MainScreen = mainScreen;
-//        // Atualizar Tabela
-//        this.MainScreen.updateTable(this.listClothes(selectedFilter));
-//    }
-    
+    public ControllerClothing(MainScreen mainScreen) {
+        this.mainView = mainScreen;
+        // Atualizar Tabela
+        this.mainView.updateTable(this.listClothes(selectedFilter));
+    }
+
     // Create
     public boolean createClothing(Clothing clothes) throws Exception {
         try {
