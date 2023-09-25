@@ -2,18 +2,21 @@ package Controller;
 
 import Model.Clothing;
 import Model.ClothingDAO;
+import Model.Filter.ColorFilter;
 import View.MainScreen;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class ControllerClothing {
 
     ClothingDAO database = new ClothingDAO();
-
     MainScreen mainView = null;
+    String selectedFilter = "";
+    ColorFilter colorFilter = new ColorFilter();
+
     // Empty Constructor
     public ControllerClothing() {
-
     }
 
     public ControllerClothing(MainScreen mainScreen) {
@@ -26,11 +29,8 @@ public class ControllerClothing {
     public boolean createClothing(Clothing clothes) throws Exception {
         try {
             boolean isCreated = database.addClothing(clothes);
-
             // Atualizar Tabela
-            /*
-            
-             */
+            this.mainView.updateTable(this.listClothes(selectedFilter));
             return isCreated;
         } catch (Exception e) {
             throw new Exception("Erro adicionar ao banco de dados", e);
@@ -38,20 +38,13 @@ public class ControllerClothing {
     }
 
     // Read
-    String selectedFilter = " ";
-
     public ArrayList<Clothing> listClothes(String filter) {
         try {
             ArrayList<Clothing> clothes = database.getAllClothing();
             ArrayList<Clothing> filteredClothes = new ArrayList<>();
 
             switch (filter.toLowerCase().trim()) {
-                /*
-                
-                Adicionar Filtros com Collectios
-                Filtro Id / Nome / Categoria / Preço
-                
-                 */
+
             }
             this.selectedFilter = filter;
             return clothes;
@@ -59,22 +52,27 @@ public class ControllerClothing {
             //throw new Exception("Erro ao listar roupas", e);
             JOptionPane.showMessageDialog(null, e);
         }
-        return listClothes("insert a filter here");
+        return listClothes(null);
     }
 
     // Update
     public boolean editClothing(Clothing clothes) throws Exception {
-
         try {
             boolean isUpdated = database.updateClothing(clothes);
-
             // Atualizar Tabela
-            /*
-            
-             */
+            this.mainView.updateTable(this.listClothes(selectedFilter));
             return isUpdated;
         } catch (Exception e) {
             throw new Exception("Erro ao Editar", e);
+        }
+    }
+
+    // Comandos adicionar itens nas ComboBox
+    public void loadComboColors(JComboBox<String>... comboBoxes) {
+        for (JComboBox<String> comboBox : comboBoxes) {
+            for (String color : colorFilter.getAvailableColors()) {
+                comboBox.addItem(color);
+            }
         }
     }
 }

@@ -279,7 +279,7 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jColorBox" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="jFilterColor" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -308,7 +308,7 @@
                                           <Component id="jTextFilter" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jCategoryBox" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jSizeBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jColorBox" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jFilterColor" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jMultipleFiltersBox" alignment="2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -353,11 +353,11 @@
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="jColorBox">
+                            <Component class="javax.swing.JComboBox" name="jFilterColor">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
-                                    <StringItem index="0" value="Cor"/>
+                                    <StringItem index="0" value="Todas"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -551,28 +551,41 @@
                                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jTextField3" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                                                       <Component id="labelPrice" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jTextField3" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="487" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="168" max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
                                                       <Group type="102" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jComboBox2" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                                              <Component id="jComboSize" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
                                                           </Group>
-                                                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                                          <EmptySpace pref="167" max="32767" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jComboBox1" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                                                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <Component id="jComboCategory" min="-2" pref="170" max="-2" attributes="0"/>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Component id="btnAddCategory" min="-2" pref="30" max="-2" attributes="0"/>
+                                                              </Group>
                                                           </Group>
-                                                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                                          <EmptySpace pref="168" max="32767" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jComboBox3" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                                                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <Component id="jComboColor" min="-2" pref="170" max="-2" attributes="0"/>
+                                                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                                                  <Component id="btnAddColor" min="-2" pref="30" max="-2" attributes="0"/>
+                                                              </Group>
                                                           </Group>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -588,45 +601,37 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="labelPeça" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="labelDescription" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jComboBox3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBox1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBox2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="labelPrice" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelPrice" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jTextField3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboSize" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboCategory" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnAddCategory" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jComboColor" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnAddColor" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jLabel9" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jCheckBox2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -730,7 +735,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox1">
+                        <Component class="javax.swing.JComboBox" name="jComboCategory">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="JetBrains Mono Light" size="16" style="0"/>
@@ -751,7 +756,7 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox2">
+                        <Component class="javax.swing.JComboBox" name="jComboSize">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="JetBrains Mono Light" size="16" style="0"/>
@@ -772,18 +777,13 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox3">
+                        <Component class="javax.swing.JComboBox" name="jComboColor">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="JetBrains Mono Light" size="16" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="4">
-                                <StringItem index="0" value="Item 1"/>
-                                <StringItem index="1" value="Item 2"/>
-                                <StringItem index="2" value="Item 3"/>
-                                <StringItem index="3" value="Item 4"/>
-                              </StringArray>
+                              <StringArray count="0"/>
                             </Property>
                             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                               <Color id="Hand Cursor"/>
@@ -837,6 +837,18 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
                           </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnAddCategory">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="&#x2795;"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Adicionar Nova Categoria"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnAddColor">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="&#x2795;"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Adicionar Nova Cor"/>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>

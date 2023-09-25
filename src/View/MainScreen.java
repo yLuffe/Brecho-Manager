@@ -5,7 +5,6 @@ import Model.Clothing;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MainScreen extends javax.swing.JFrame {
@@ -15,8 +14,9 @@ public class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-        this.controller = new ControllerClothing(this);
         cardLayout = (CardLayout) (panelCards.getLayout());
+        this.controller = new ControllerClothing(this);
+        this.controller.loadComboColors(jComboColor,jFilterColor);
     }
 
     // Métodos
@@ -68,7 +68,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelFiltros = new javax.swing.JLabel();
         jCategoryBox = new javax.swing.JComboBox<>();
         jSizeBox = new javax.swing.JComboBox<>();
-        jColorBox = new javax.swing.JComboBox<>();
+        jFilterColor = new javax.swing.JComboBox<>();
         jMultipleFiltersBox = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -90,13 +90,15 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboCategory = new javax.swing.JComboBox<>();
+        jComboSize = new javax.swing.JComboBox<>();
+        jComboColor = new javax.swing.JComboBox<>();
         jTextField3 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jTextField4 = new javax.swing.JTextField();
+        btnAddCategory = new javax.swing.JButton();
+        btnAddColor = new javax.swing.JButton();
         jPanelCustomers = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,7 +194,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jSizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tamanho" }));
 
-        jColorBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cor" }));
+        jFilterColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas" }));
 
         jMultipleFiltersBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtros" }));
 
@@ -226,7 +228,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jColorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterColor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +252,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jTextFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCategoryBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jColorBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMultipleFiltersBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
@@ -455,17 +457,16 @@ public class MainScreen extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
         jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        jComboBox1.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboCategory.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
+        jComboCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jComboBox2.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboSize.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
+        jComboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboSize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jComboBox3.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboColor.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
+        jComboColor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jTextField3.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
         jTextField3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -485,6 +486,12 @@ public class MainScreen extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
+
+        btnAddCategory.setText("➕");
+        btnAddCategory.setToolTipText("Adicionar Nova Categoria");
+
+        btnAddColor.setText("➕");
+        btnAddColor.setToolTipText("Adicionar Nova Cor");
 
         javax.swing.GroupLayout viewNewClothingLayout = new javax.swing.GroupLayout(viewNewClothing);
         viewNewClothing.setLayout(viewNewClothingLayout);
@@ -509,24 +516,33 @@ public class MainScreen extends javax.swing.JFrame {
                                     .addComponent(jLabel10)
                                     .addComponent(jCheckBox1)
                                     .addComponent(jLabel8)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelPrice))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
+                                    .addComponent(labelPrice)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                                 .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jCheckBox2)
                                     .addGroup(viewNewClothingLayout.createSequentialGroup()
                                         .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel5)
-                                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(66, 66, 66)
+                                            .addComponent(jComboSize, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                                         .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4))
-                                        .addGap(66, 66, 66)
+                                            .addComponent(jLabel4)
+                                            .addGroup(viewNewClothingLayout.createSequentialGroup()
+                                                .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                                         .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6))))))
+                                            .addComponent(jLabel6)
+                                            .addGroup(viewNewClothingLayout.createSequentialGroup()
+                                                .addComponent(jComboColor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(5, 5, 5)
+                                                .addComponent(btnAddColor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(viewNewClothingLayout.createSequentialGroup()
+                                        .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jCheckBox2))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(15, 15, 15))))
         );
         viewNewClothingLayout.setVerticalGroup(
@@ -534,38 +550,34 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(viewNewClothingLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(labelPeça)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(labelDescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(10, 10, 10)
-                        .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addComponent(labelPrice)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(labelPrice))
+                .addGap(10, 10, 10)
+                .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddColor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
+                .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8))
+                .addGap(10, 10, 10)
                 .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(10, 10, 10)
-                        .addComponent(jCheckBox2))
-                    .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(10, 10, 10)
-                        .addComponent(jCheckBox1)))
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox1))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel10)
                 .addGap(10, 10, 10)
@@ -674,6 +686,8 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCategory;
+    private javax.swing.JButton btnAddColor;
     private javax.swing.JButton buttonAddClothes;
     private javax.swing.JButton buttonEditClothes;
     private javax.swing.JButton buttonRemoveClothes;
@@ -682,10 +696,10 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jCategoryBox;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JComboBox<String> jColorBox;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboCategory;
+    private javax.swing.JComboBox<String> jComboColor;
+    private javax.swing.JComboBox<String> jComboSize;
+    private javax.swing.JComboBox<String> jFilterColor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

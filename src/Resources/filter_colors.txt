@@ -1,0 +1,17 @@
+Preto
+Branco
+Vermelho
+Azul
+Verde
+Amarelo
+Rosa
+Laranja
+Roxo
+Marrom
+Cinza
+Bege
+Prata
+Bronze
+Creme
+Vinho
+Bordô
