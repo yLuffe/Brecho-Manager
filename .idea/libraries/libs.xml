@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/flatlaf-intellij-themes-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/flatlaf-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sqlite-jdbc-3.42.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/miglayout-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/TimingFramework-0.55.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

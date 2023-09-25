@@ -2,6 +2,8 @@ package Main;
 
 import Database.ConnectionSQLite;
 import View.MainScreen;
+import com.formdev.flatlaf.intellijthemes.FlatGradiantoMidnightBlueIJTheme;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UIManager;
 
@@ -14,7 +16,7 @@ public class Main {
         UIManager.put("OptionPane.noButtonText", "Não");
 
         // Ativa o tema Dracula
-        FlatMacLightLaf.setup();
+        FlatGradiantoMidnightBlueIJTheme.setup();
 
         // Mostra a tela inicial
         new MainScreen().setVisible(true);
