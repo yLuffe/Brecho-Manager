@@ -76,5 +76,4 @@ public class ControllerClothing {
             throw new Exception("Erro ao Editar", e);
         }
     }
-
 }

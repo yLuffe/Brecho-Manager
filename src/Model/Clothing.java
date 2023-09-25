@@ -147,7 +147,7 @@ public class Clothing {
         if (this.price == 0.0) {
             throw new IllegalArgumentException("Insira um valor para roupa");
         }
-    }   
+    }
 
     // toString
     @Override
