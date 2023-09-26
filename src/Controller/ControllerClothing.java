@@ -6,7 +6,6 @@ import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import View.MainScreen;
 import java.util.ArrayList;
-import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -76,18 +75,20 @@ public class ControllerClothing {
             comboBox.removeAllItems();
             for (String color : colorFilter.getAvailableColors()) {
                 comboBox.addItem(color);
-                comboBox.revalidate();
             }
+            comboBox.revalidate();
+            comboBox.repaint();
         }
     }
 
     public void loadComboCategories(JComboBox<String>... comboBoxes) {
         for (JComboBox<String> comboBox : comboBoxes) {
             comboBox.removeAllItems();
-            for (String category : categoryFilter.getAvaibleCategories()) {
+            for (String category : categoryFilter.getAvailableCategories()) {
                 comboBox.addItem(category);
-                comboBox.revalidate();
             }
+            comboBox.revalidate();
+            comboBox.repaint();
         }
     }
 }

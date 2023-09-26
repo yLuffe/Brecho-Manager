@@ -2,6 +2,7 @@ package View;
 
 import Controller.ControllerClothing;
 import Model.Clothing;
+import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import Util.BooleanRenderer;
 import java.awt.CardLayout;
@@ -12,17 +13,20 @@ import javax.swing.table.DefaultTableModel;
 public class MainScreen extends javax.swing.JFrame {
 
     CardLayout cardLayout;
+    Clothing clothing;
     ControllerClothing controller;
 
     public MainScreen() {
         initComponents();
-        cardLayout = (CardLayout) (panelCards.getLayout());
-        
+
         // Controller
         this.controller = new ControllerClothing(this);
-        this.controller.loadComboColors(jComboColor,jFilterColor);
+        this.controller.loadComboColors(jComboColor, jFilterColor);
         this.controller.loadComboCategories(jComboCategory, jFilterCategory);
-        
+
+        //  Obetém o CardLayout para alternar entre painéis
+        cardLayout = (CardLayout) (panelCards.getLayout());
+
         // BooleanRender
         jTableClothes.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
         jTableClothes.getColumnModel().getColumn(8).setCellRenderer(new BooleanRenderer());
@@ -109,8 +113,8 @@ public class MainScreen extends javax.swing.JFrame {
         jBtnAddCategory = new javax.swing.JButton();
         jBtnAddColor = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabelTitle = new javax.swing.JLabel();
+        jBtnAddClothing = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanelCustomers = new javax.swing.JPanel();
 
@@ -457,7 +461,7 @@ public class MainScreen extends javax.swing.JFrame {
         jComboCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jComboSize.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "PP", "P", "M", "G", "GG", "XG", "G1", "G2", "G3", "G4" }));
+        jComboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "PP", "P", "M", "G", "GG", "XG", "G1", "G2", "G3", "G4" }));
         jComboSize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jComboColor.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
@@ -484,6 +488,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         jBtnAddCategory.setText("➕");
         jBtnAddCategory.setToolTipText("Adicionar Nova Categoria");
+        jBtnAddCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddCategoryActionPerformed(evt);
+            }
+        });
 
         jBtnAddColor.setText("➕");
         jBtnAddColor.setToolTipText("Adicionar Nova Cor");
@@ -493,11 +502,16 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setText("Cadastrar Peça");
+        jLabelTitle.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabelTitle.setText("Cadastrar Peça");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jButton1.setText("✔");
+        jBtnAddClothing.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jBtnAddClothing.setText("✔");
+        jBtnAddClothing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddClothingActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButton2.setText("✖");
@@ -553,25 +567,22 @@ public class MainScreen extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnAddClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))))
         );
         viewNewClothingLayout.setVerticalGroup(
             viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewNewClothingLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewNewClothingLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNewClothingLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(viewNewClothingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtnAddClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -674,10 +685,12 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnAddClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothesActionPerformed
         cardLayout.show(panelCards, "cardAdd");
+        jLabelTitle.setText("Cadastrar Peça");
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
     private void jBtnEditClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditClothesActionPerformed
         cardLayout.show(panelCards, "cardEdit");
+        jLabelTitle.setText("Editar Peça");
     }//GEN-LAST:event_jBtnEditClothesActionPerformed
 
     private void textCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCustomerNameActionPerformed
@@ -685,35 +698,67 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_textCustomerNameActionPerformed
 
     private void jBtnAddColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddColorActionPerformed
-        String newColor = JOptionPane.showInputDialog(null,"Digite o nome do novo filtro:","Input", JOptionPane.INFORMATION_MESSAGE);
+        String newColor = JOptionPane.showInputDialog(null, "Digite o nome do novo filtro:", "Input", JOptionPane.INFORMATION_MESSAGE);
         try {
             new ColorFilter().addColor(newColor);
-            controller.loadComboColors(jComboColor,jFilterColor);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        } finally {
+            controller.loadComboColors(jComboColor, jFilterColor);
         }
     }//GEN-LAST:event_jBtnAddColorActionPerformed
 
-    public static void main(String args[]) {
+    private void jBtnAddClothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothingActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            // Cria objeto de Roupa
+            clothing = new Clothing(
+                    (String) textName.getText(),
+                    (String) textDescription.getText(),
+                    (String) jComboCategory.getSelectedItem(),
+                    (String) jComboSize.getSelectedItem(),
+                    (String) jComboColor.getSelectedItem(),
+                    (Double) Double.parseDouble(textPrice.getText()),
+                    (Boolean) jCheckConsigned.isSelected(),
+                    (Boolean) jCheckNewClothing.isSelected(),
+                    (String) textCustomerName.getText()
+            );
+            // Verifica se valores são válidos
+            clothing.clothingValidation();
+            // Adiciona ao Banco de Dados
+            if (controller.createClothing(clothing) == true) {
+                // Mensagem Sucesso
+                JOptionPane.showMessageDialog(null, "Peça adicionada com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
+                // Limpa os Campos
+                textName.setText("");
+                textDescription.setText("");
+                jComboCategory.setSelectedIndex(0);
+                jComboSize.setSelectedIndex(0);
+                jComboColor.setSelectedIndex(0);
+                textPrice.setText("");
+                jCheckConsigned.setSelected(false);
+                jCheckNewClothing.setSelected(false);
+                textCustomerName.setText("");
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        //</editor-fold>
+    }//GEN-LAST:event_jBtnAddClothingActionPerformed
 
-        /* Create and display the form */
+    private void jBtnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddCategoryActionPerformed
+        String newCategory = JOptionPane.showInputDialog(null, "Digite o nome do novo filtro:", "Input", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            new CategoryFilter().addCategory(newCategory);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        } finally {
+            controller.loadComboCategories(jComboCategory, jFilterCategory);
+        }
+    }//GEN-LAST:event_jBtnAddCategoryActionPerformed
+
+    public static void main(String args[]) {
+        // Create and display the form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainScreen().setVisible(true);
@@ -724,12 +769,12 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAddCategory;
     private javax.swing.JButton jBtnAddClothes;
+    private javax.swing.JButton jBtnAddClothing;
     private javax.swing.JButton jBtnAddColor;
     private javax.swing.JButton jBtnEditClothes;
     private javax.swing.JButton jBtnRemoveClothes;
     private javax.swing.JButton jBtnSearch;
     private javax.swing.JButton jBtnViewClothes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckConsigned;
     private javax.swing.JCheckBox jCheckNewClothing;
@@ -739,13 +784,13 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jFilterCategory;
     private javax.swing.JComboBox<String> jFilterColor;
     private javax.swing.JComboBox<String> jFilterSize;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelCor;
     private javax.swing.JLabel jLabelFiltros;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelPeça;
     private javax.swing.JLabel jLabelTamanho;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JTabbedPane jMainTabbedPane;
     private javax.swing.JComboBox<String> jMultipleFilters;
     private javax.swing.JPanel jPanelCustomers;
