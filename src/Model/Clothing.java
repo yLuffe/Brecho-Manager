@@ -16,7 +16,48 @@ public class Clothing {
     private boolean newClothes;
     private String customerName;
 
-    // Constuctor Vazio
+    // Validação
+    public void clothingValidation() throws IllegalArgumentException {
+        // Validação Nome
+        if (this.name == null || this.name.isBlank() || this.name.length() <= 3) {
+            throw new IllegalArgumentException("Insira um nome válido para a roupa!");
+        }
+        this.name = formatString(this.name);
+
+        // Validação Descrição
+        if (this.description.trim().length() > 0 && this.description.trim().length() <= 3) {
+            throw new IllegalArgumentException("Descrição deve ser nula ou ter mais que três caracteres!");
+        }
+        this.description = formatString(this.description);
+
+        // Validação Categoria
+        if (this.category.equals("Todas")) {
+            throw new IllegalArgumentException("Insira uma categoria para roupa!");
+        }
+
+        // Validação Tamanho
+        if (this.size.equals("Todos")) {
+            throw new IllegalArgumentException("Insira um tamanho para roupa!");
+        }
+
+        // Validação Cor
+        if (this.color.equals("Todas")) {
+            throw new IllegalArgumentException("Insira uma cor para roupa!");
+        }
+
+        // Validação Preço
+        if (this.price == 0.0) {
+            throw new IllegalArgumentException("Insira um valor para roupa!");
+        }
+
+        // Validação Nome da Cliente
+        if (this.customerName.trim().length() > 0 && this.customerName.trim().length() <= 3) {
+            throw new IllegalArgumentException("Nome da cliente deve ser nulo ou ter mais que três caracteres!");
+        }
+        this.customerName = formatString(this.customerName);
+    }
+
+    // Construtor Vazio
     public Clothing() {
     }
 
@@ -126,38 +167,6 @@ public class Clothing {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public void clothingValidation() throws IllegalArgumentException {
-        // Validação Nome
-        if (this.name == null || this.name.isBlank() || this.name.length()<=3) {
-            throw new IllegalArgumentException("Insira um nome válido para a roupa!");
-        }
-
-        this.name = formatString(this.name);
-        
-        // Validação Categoria
-        if (this.category == "Todas") {
-            throw new IllegalArgumentException("Insira uma categoria para roupa");
-        }
-        
-        // Validação Cor
-        if (this.color == null || this.color.isBlank()) {
-            throw new IllegalArgumentException("Insira uma cor para roupa");
-        }
-
-        // Validação Preço
-        if (this.price == 0.0) {
-            throw new IllegalArgumentException("Insira um valor para roupa");
-        }
-        
-        // Validação Consignado
-        
-        // Validação Roupa Nova
-        
-        // Validação Nome da Cliente
-        
-        
     }
 
     // toString

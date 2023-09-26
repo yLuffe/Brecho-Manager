@@ -1,6 +1,6 @@
 package Model.Filter;
 
-import Controller.ControllerClothing;
+import static Util.StringUtil.formatString;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,12 +21,19 @@ public class ColorFilter {
 
     // Método para carregar cores disponíveis do arquivo
     private void loadAvailableColors() {
+        availableColors.clear(); // Limpa a lista antes de carregar as cores
         try (BufferedReader reader = new BufferedReader(new FileReader("src/Resources/filter_colors.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 availableColors.add(line);
             }
-            Collections.sort(availableColors.subList(1, availableColors.size()));
+
+            // Se "Todas" estiver na lista, remova-a temporariamente e depois adicione-a de volta
+            boolean containsTodas = availableColors.remove("Todas");
+            Collections.sort(availableColors);
+            if (containsTodas) {
+                availableColors.add(0, "Todas"); // Adicione "Todas" de volta à primeira posição, se estava presente
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,8 +49,8 @@ public class ColorFilter {
         if (color == null || color.length() <= 3 || color.isBlank()) {
             throw new Exception("Valor inserido é inválido.");
         } else {
-            String formattedColor = color.trim().substring(0, 1).toUpperCase() + color.trim().substring(1).toLowerCase();
-            int option = JOptionPane.showConfirmDialog(null, "Deseja adicionar o filtro " + formattedColor + " ?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            color = formatString(color);
+            int option = JOptionPane.showConfirmDialog(null, "Deseja adicionar o filtro " + color + " ?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 availableColors.add(color);
                 writeColorToFile(color);
