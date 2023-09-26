@@ -21,19 +21,13 @@ public class ColorFilter {
 
     // Método para carregar cores disponíveis do arquivo
     private void loadAvailableColors() {
-        availableColors.clear(); // Limpa a lista antes de carregar as cores
+        availableColors.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/Resources/filter_colors.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 availableColors.add(line);
             }
-
-            // Se "Todas" estiver na lista, remova-a temporariamente e depois adicione-a de volta
-            boolean containsTodas = availableColors.remove("Todas");
-            Collections.sort(availableColors);
-            if (containsTodas) {
-                availableColors.add(0, "Todas"); // Adicione "Todas" de volta à primeira posição, se estava presente
-            }
+            Collections.sort(availableColors.subList(1, availableColors.size()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,6 +35,7 @@ public class ColorFilter {
 
     // Método para obter cores disponíveis
     public List<String> getAvailableColors() {
+        loadAvailableColors();
         return availableColors;
     }
 

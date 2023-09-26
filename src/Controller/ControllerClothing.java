@@ -86,9 +86,11 @@ public class ControllerClothing {
             comboBox.removeAllItems();
             for (String category : categoryFilter.getAvailableCategories()) {
                 comboBox.addItem(category);
+
             }
             comboBox.revalidate();
             comboBox.repaint();
         }
+
     }
 }
