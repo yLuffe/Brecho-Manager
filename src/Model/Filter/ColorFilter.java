@@ -1,5 +1,6 @@
 package Model.Filter;
 
+import Controller.ControllerClothing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ColorFilter {
 
@@ -24,10 +26,9 @@ public class ColorFilter {
             while ((line = reader.readLine()) != null) {
                 availableColors.add(line);
             }
-            Collections.sort(availableColors);
+            Collections.sort(availableColors.subList(1, availableColors.size()));
         } catch (IOException e) {
             e.printStackTrace();
-            // Lide com exceções de E/S aqui, como exibir uma mensagem de erro
         }
     }
 
@@ -37,19 +38,27 @@ public class ColorFilter {
     }
 
     // Método para adicionar uma nova cor às cores disponíveis e ao arquivo
-    public void addColor(String color) {
-        availableColors.add(color);
-        writeColorToFile(color);
+    public void addColor(String color) throws Exception {
+        if (color == null || color.length() <= 3 || color.isBlank()) {
+            throw new Exception("Valor inserido é inválido.");
+        } else {
+            String formattedColor = color.trim().substring(0, 1).toUpperCase() + color.trim().substring(1).toLowerCase();
+            int option = JOptionPane.showConfirmDialog(null, "Deseja adicionar o filtro " + formattedColor + " ?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                availableColors.add(color);
+                writeColorToFile(color);
+                JOptionPane.showMessageDialog(null, "Filtro adicionado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     // Método para escrever uma nova cor no arquivo
     private void writeColorToFile(String color) {
         try (FileWriter writer = new FileWriter("src/Resources/filter_colors.txt", true)) {
             writer.write(color);
-            writer.write("\n"); // Adiciona uma nova linha
+            writer.write("\n");
         } catch (IOException e) {
             e.printStackTrace();
-            // Lide com exceções de E/S aqui, como exibir uma mensagem de erro
         }
     }
 }

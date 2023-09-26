@@ -25,7 +25,7 @@ public class CategoryFilter {
             while ((line = reader.readLine()) != null) {
                 avaiableCategories.add(line);
             }
-            Collections.sort(avaiableCategories);
+            Collections.sort(avaiableCategories.subList(1, avaiableCategories.size()));
         } catch (IOException e) {
             e.printStackTrace();
         }
