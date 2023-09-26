@@ -3,10 +3,9 @@ package View;
 import Controller.ControllerClothing;
 import Model.Clothing;
 import Model.Filter.ColorFilter;
+import Util.BooleanRenderer;
 import java.awt.CardLayout;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,9 +17,16 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen() {
         initComponents();
         cardLayout = (CardLayout) (panelCards.getLayout());
+        
+        // Controller
         this.controller = new ControllerClothing(this);
         this.controller.loadComboColors(jComboColor,jFilterColor);
         this.controller.loadComboCategories(jComboCategory, jFilterCategory);
+        
+        // BooleanRender
+        jTableClothes.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
+        jTableClothes.getColumnModel().getColumn(8).setCellRenderer(new BooleanRenderer());
+        //jTableClothes.getColumnModel().getColumn(10).setCellRenderer(new BooleanRenderer());
     }
 
     // Métodos
@@ -156,7 +162,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Components/Icons/desapegoslogo.jpg"))); // NOI18N
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/desapegoslogo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout optionsPaneLayout = new javax.swing.GroupLayout(optionsPane);
         optionsPane.setLayout(optionsPaneLayout);

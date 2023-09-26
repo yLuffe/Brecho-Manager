@@ -1,5 +1,7 @@
 package Model;
 
+import static Util.StringUtil.formatString;
+
 public class Clothing {
 
     // Clothing Attributes
@@ -127,26 +129,35 @@ public class Clothing {
     }
 
     public void clothingValidation() throws IllegalArgumentException {
-
-        if (this.name == null || this.color.isBlank()) {
-            throw new IllegalArgumentException("Insira um nome para a roupa!");
+        // Validação Nome
+        if (this.name == null || this.name.isBlank() || this.name.length()<=3) {
+            throw new IllegalArgumentException("Insira um nome válido para a roupa!");
         }
 
-        if (this.category == null || this.color.isBlank()) {
+        this.name = formatString(this.name);
+        
+        // Validação Categoria
+        if (this.category == "Todas") {
             throw new IllegalArgumentException("Insira uma categoria para roupa");
         }
-
-        if (this.size == null || this.color.isBlank()) {
-            throw new IllegalArgumentException("Insira um tamanho para roupa");
-        }
-
+        
+        // Validação Cor
         if (this.color == null || this.color.isBlank()) {
             throw new IllegalArgumentException("Insira uma cor para roupa");
         }
 
+        // Validação Preço
         if (this.price == 0.0) {
             throw new IllegalArgumentException("Insira um valor para roupa");
         }
+        
+        // Validação Consignado
+        
+        // Validação Roupa Nova
+        
+        // Validação Nome da Cliente
+        
+        
     }
 
     // toString
