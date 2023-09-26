@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ColorFilter {
@@ -23,6 +24,7 @@ public class ColorFilter {
             while ((line = reader.readLine()) != null) {
                 availableColors.add(line);
             }
+            Collections.sort(availableColors);
         } catch (IOException e) {
             e.printStackTrace();
             // Lide com exceções de E/S aqui, como exibir uma mensagem de erro

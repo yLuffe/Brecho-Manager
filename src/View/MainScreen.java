@@ -17,6 +17,7 @@ public class MainScreen extends javax.swing.JFrame {
         cardLayout = (CardLayout) (panelCards.getLayout());
         this.controller = new ControllerClothing(this);
         this.controller.loadComboColors(jComboColor,jFilterColor);
+        this.controller.loadComboCategories(jComboCategory, jFilterCategory);
     }
 
     // Métodos
@@ -66,8 +67,8 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelPeça = new javax.swing.JLabel();
         jTextFilter = new javax.swing.JTextField();
         jLabelFiltros = new javax.swing.JLabel();
-        jCategoryBox = new javax.swing.JComboBox<>();
-        jSizeBox = new javax.swing.JComboBox<>();
+        jFilterCategory = new javax.swing.JComboBox<>();
+        jFilterSize = new javax.swing.JComboBox<>();
         jFilterColor = new javax.swing.JComboBox<>();
         jMultipleFiltersBox = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -190,9 +191,9 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabelFiltros.setText("Categoria:");
 
-        jCategoryBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria" }));
+        jFilterCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas" }));
 
-        jSizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tamanho" }));
+        jFilterSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
         jFilterColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas" }));
 
@@ -220,11 +221,11 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCategoryBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelFiltros))
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,8 +251,8 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCategoryBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFilterColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMultipleFiltersBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
@@ -458,11 +459,9 @@ public class MainScreen extends javax.swing.JFrame {
         jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jComboCategory.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jComboSize.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
-        jComboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboSize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jComboColor.setFont(new java.awt.Font("JetBrains Mono Light", 0, 16)); // NOI18N
@@ -693,13 +692,14 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton buttonRemoveClothes;
     private javax.swing.JButton buttonViewClothes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jCategoryBox;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox<String> jComboCategory;
     private javax.swing.JComboBox<String> jComboColor;
     private javax.swing.JComboBox<String> jComboSize;
+    private javax.swing.JComboBox<String> jFilterCategory;
     private javax.swing.JComboBox<String> jFilterColor;
+    private javax.swing.JComboBox<String> jFilterSize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -720,7 +720,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPanel;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox<String> jSizeBox;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTableClothes;
     private javax.swing.JTextField jTextField1;
