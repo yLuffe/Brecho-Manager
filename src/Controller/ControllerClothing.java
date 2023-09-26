@@ -75,14 +75,11 @@ public class ControllerClothing {
             comboBox.removeAllItems();
             for (String color : colorFilter.getAvailableColors()) {
                 comboBox.addItem(color);
-
             }
             comboBox.revalidate();
             comboBox.repaint();
-
         }
     }
-    
 
     public void loadComboCategories(JComboBox<String>... comboBoxes) {
         for (JComboBox<String> comboBox : comboBoxes) {
@@ -94,5 +91,6 @@ public class ControllerClothing {
             comboBox.revalidate();
             comboBox.repaint();
         }
+
     }
 }

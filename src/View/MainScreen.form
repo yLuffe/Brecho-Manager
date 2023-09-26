@@ -537,29 +537,6 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelColor" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jComboColor" min="-2" pref="200" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jBtnAddColor" min="-2" pref="30" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboCategory" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtnAddCategory" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelSize" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboSize" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="549" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="textName" alignment="0" max="32767" attributes="0"/>
                                               <Component id="textDescription" alignment="0" max="32767" attributes="0"/>
                                               <Component id="textCustomerName" alignment="0" max="32767" attributes="0"/>
@@ -597,6 +574,29 @@
                                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                           <Component id="jBtnAddClothing" min="-2" pref="47" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboCategory" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jBtnAddCategory" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelColor" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jComboColor" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jBtnAddColor" min="-2" pref="30" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelSize" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboSize" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace pref="507" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -641,19 +641,28 @@
                                   <Component id="textCustomerName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelColor" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelSize" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelSize" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="2" attributes="0">
+                                              <Component id="jComboCategory" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jBtnAddCategory" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jComboSize" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="labelColor" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="2" attributes="0">
+                                              <Component id="jComboColor" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jBtnAddColor" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jComboColor" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtnAddColor" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="jComboCategory" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtnAddCategory" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="jComboSize" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

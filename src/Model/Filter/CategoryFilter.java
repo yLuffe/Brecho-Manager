@@ -27,12 +27,7 @@ public class CategoryFilter {
             while ((line = reader.readLine()) != null) {
                 availableCategories.add(line);
             }
-            // Se "Todas" estiver na lista, remova-a temporariamente e depois adicione-a de volta
-            boolean containsTodas = availableCategories.remove("Todas");
-            Collections.sort(availableCategories);
-            if (containsTodas) {
-                availableCategories.add(0, "Todas");
-            }
+            Collections.sort(availableCategories.subList(1, availableCategories.size()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,6 +35,7 @@ public class CategoryFilter {
 
     // Obter categorias disponíveis
     public List<String> getAvailableCategories() {
+        loadAvailableCategories();
         return availableCategories;
     }
 
