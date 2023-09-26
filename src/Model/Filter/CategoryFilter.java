@@ -8,11 +8,12 @@ import static java.nio.file.Files.write;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class CategoryFilter {
-    
+
     private List<String> avaiableCategories;
-    
+
     public CategoryFilter() {
         avaiableCategories = new ArrayList<>();
         loadAvaiableCategories();
@@ -37,9 +38,18 @@ public class CategoryFilter {
     }
 
     // Adicionar nova categoria
-    public void addCategory(String category) {
-        avaiableCategories.add(category);
-        writeCategoryToFile(category);
+    public void addCategory(String category) throws Exception {
+        if (category == null || category.length() <= 3 || category.isBlank()) {
+            throw new Exception("Valor inserido é inválido");
+        } else {
+            String formattedCategory = category.trim().substring(0, 1).toUpperCase() + category.trim().substring(1).toLowerCase();
+            int option = JOptionPane.showConfirmDialog(null, "Deseja adicionar o filtro " + formattedCategory + " ?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                avaiableCategories.add(category);
+                writeCategoryToFile(category);
+                JOptionPane.showMessageDialog(null, "Filtro adicionado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     // Salvar nova categoria no arquivo
