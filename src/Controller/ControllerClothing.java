@@ -2,9 +2,11 @@ package Controller;
 
 import Model.Clothing;
 import Model.ClothingDAO;
+import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import View.MainScreen;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -14,6 +16,7 @@ public class ControllerClothing {
     MainScreen mainView = null;
     String selectedFilter = "";
     ColorFilter colorFilter = new ColorFilter();
+    CategoryFilter categoryFilter = new CategoryFilter();
 
     // Empty Constructor
     public ControllerClothing() {
@@ -72,6 +75,14 @@ public class ControllerClothing {
         for (JComboBox<String> comboBox : comboBoxes) {
             for (String color : colorFilter.getAvailableColors()) {
                 comboBox.addItem(color);
+            }
+        }
+    }
+
+    public void loadComboCategories(JComboBox<String>... comboBoxes) {
+        for (JComboBox<String> comboBox : comboBoxes) {
+            for (String category : categoryFilter.getAvaibleCategories()) {
+                comboBox.addItem(category);
             }
         }
     }
