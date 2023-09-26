@@ -1,6 +1,7 @@
 package Main;
 
 import Database.ConnectionSQLite;
+import static Util.StringUtil.formatString;
 import View.MainScreen;
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import javax.swing.UIManager;
@@ -18,7 +19,7 @@ public class Main {
 
         // Mostra a tela inicial
         new MainScreen().setVisible(true);
-        
+
         // Chamando banco de dados e conectando
         ConnectionSQLite connect = new ConnectionSQLite();
         connect.connect();
