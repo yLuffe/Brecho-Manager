@@ -4,7 +4,6 @@ import Database.ConnectionSQLite;
 import View.MainScreen;
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import javax.swing.UIManager;
-import Model.Filter.ColorFilter;
 
 public class Main {
 

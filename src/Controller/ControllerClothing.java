@@ -47,8 +47,8 @@ public class ControllerClothing {
             ArrayList<Clothing> filteredClothes = new ArrayList<>();
 
             switch (filter.toLowerCase().trim()) {
-
             }
+
             this.selectedFilter = filter;
             return clothes;
         } catch (Exception e) {
@@ -73,16 +73,20 @@ public class ControllerClothing {
     // Comandos adicionar itens nas ComboBox
     public void loadComboColors(JComboBox<String>... comboBoxes) {
         for (JComboBox<String> comboBox : comboBoxes) {
+            comboBox.removeAllItems();
             for (String color : colorFilter.getAvailableColors()) {
                 comboBox.addItem(color);
+                comboBox.revalidate();
             }
         }
     }
 
     public void loadComboCategories(JComboBox<String>... comboBoxes) {
         for (JComboBox<String> comboBox : comboBoxes) {
+            comboBox.removeAllItems();
             for (String category : categoryFilter.getAvaibleCategories()) {
                 comboBox.addItem(category);
+                comboBox.revalidate();
             }
         }
     }
