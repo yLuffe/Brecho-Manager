@@ -59,6 +59,20 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
 
+    public void clearFields() {
+        textName.setText("");
+        textDescription.setText("");
+        jComboCategory.setSelectedIndex(0);
+        jComboSize.setSelectedIndex(0);
+        jComboColor.setSelectedIndex(0);
+        textPrice.setText("");
+        jCheckConsigned.setSelected(false);
+        jCheckNewClothing.setSelected(false);
+        jCheckNo1.setSelected(false);
+        jCheckNo2.setSelected(false);
+        textCustomerName.setText("");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -363,6 +377,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButton2.setText("✖");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -729,16 +748,19 @@ public class MainScreen extends javax.swing.JFrame {
             }
             selectedClothing.setId(-1);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jBtnRemoveClothesActionPerformed
 
     private void jBtnViewClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnViewClothesActionPerformed
         cardLayout.show(panelCards, "cardView");
+        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnViewClothesActionPerformed
 
     private void jBtnAddClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothesActionPerformed
         cardLayout.show(panelCards, "cardAdd");
         jLabelTitle.setText("Cadastrar Peça");
+        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
     private void jBtnEditClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditClothesActionPerformed
@@ -748,7 +770,7 @@ public class MainScreen extends javax.swing.JFrame {
                 cardLayout.show(panelCards, "cardAdd");
                 jLabelTitle.setText("Editar Peça");
 
-                // Comandos ObjectClothing
+                // Comandos Definir Valores
                 // Texto
                 textName.setText(selectedClothing.getName());
                 textDescription.setText(selectedClothing.getDescription());
@@ -761,11 +783,10 @@ public class MainScreen extends javax.swing.JFrame {
                 // CheckBox
                 (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
                 (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
-
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
         }
-        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnEditClothesActionPerformed
 
     private void textCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCustomerNameActionPerformed
@@ -801,21 +822,25 @@ public class MainScreen extends javax.swing.JFrame {
             );
             // Verifica se valores são válidos
             clothing.clothingValidation();
+
             // Adiciona ao Banco de Dados
-            if (controller.createClothing(clothing) == true) {
-                // Mensagem Sucesso
-                JOptionPane.showMessageDialog(null, "Peça adicionada com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
-                // Limpa os Campos
-                textName.setText("");
-                textDescription.setText("");
-                jComboCategory.setSelectedIndex(0);
-                jComboSize.setSelectedIndex(0);
-                jComboColor.setSelectedIndex(0);
-                textPrice.setText("");
-                jCheckConsigned.setSelected(false);
-                jCheckNewClothing.setSelected(false);
-                textCustomerName.setText("");
+            int clothingId = selectedClothing.getId();
+
+            if (clothingId == -1) {
+                controller.createClothing(clothing);
+            } else /*if (clothingId != -1)*/ {
+                // Edita a peça
+                clothing.setId(clothingId);
+                controller.editClothing(clothing);
+                // Abre tela inicial
+                cardLayout.show(panelCards, "cardView");
+
             }
+            JOptionPane.showMessageDialog(null, "Peça " + (clothingId == -1 ? "adicionada" : "editada") + " com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpa os Campos
+            clearFields();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -865,6 +890,16 @@ public class MainScreen extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jTableClothesMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int option = JOptionPane.showConfirmDialog(null, "Deseja mesmo cancelar?\nDados não salvos serão perdidos!", "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+            cardLayout.show(panelCards, "cardView");
+            selectedClothing.setId(-1);
+            clearFields();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         // Create and display the form
