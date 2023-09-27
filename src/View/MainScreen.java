@@ -30,11 +30,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         //  Obetém o CardLayout para alternar entre painéis
         cardLayout = (CardLayout) (panelCards.getLayout());
-
-        // BooleanRender
-        //jTableClothes.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
-        //jTableClothes.getColumnModel().getColumn(8).setCellRenderer(new BooleanRenderer());
-        ////jTableClothes.getColumnModel().getColumn(10).setCellRenderer(new BooleanRenderer());
     }
 
     // Métodos
@@ -107,7 +102,6 @@ public class MainScreen extends javax.swing.JFrame {
         labelDescription = new javax.swing.JLabel();
         textPrice = new javax.swing.JTextField();
         labelPrice = new javax.swing.JLabel();
-        textFormattedPrice = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jComboCategory = new javax.swing.JComboBox<>();
         labelCategory = new javax.swing.JLabel();
@@ -403,12 +397,9 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelDescription)
                             .addComponent(labelName)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelPrice))
-                                .addGap(118, 118, 118)
-                                .addComponent(textFormattedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelPrice)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
@@ -426,9 +417,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(labelPrice)
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFormattedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -753,8 +742,30 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
     private void jBtnEditClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditClothesActionPerformed
-        cardLayout.show(panelCards, "cardEdit");
-        jLabelTitle.setText("Editar Peça");
+        if (selectedClothing.getId() != -1) {
+            try {
+                // Comandos da tela
+                cardLayout.show(panelCards, "cardAdd");
+                jLabelTitle.setText("Editar Peça");
+
+                // Comandos ObjectClothing
+                // Texto
+                textName.setText(selectedClothing.getName());
+                textDescription.setText(selectedClothing.getDescription());
+                textCustomerName.setText(selectedClothing.getCustomerName());
+                textPrice.setText(String.valueOf(selectedClothing.getPrice()));
+                // ComboBox
+                jComboCategory.setSelectedItem(selectedClothing.getCategory());
+                jComboColor.setSelectedItem(selectedClothing.getColor());
+                jComboSize.setSelectedItem(selectedClothing.getSize());
+                // CheckBox
+                (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
+                (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
+
+            } catch (Exception e) {
+            }
+        }
+        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnEditClothesActionPerformed
 
     private void textCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCustomerNameActionPerformed
@@ -922,7 +933,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panelCards;
     private javax.swing.JTextField textCustomerName;
     private javax.swing.JTextField textDescription;
-    private javax.swing.JFormattedTextField textFormattedPrice;
     private javax.swing.JTextField textName;
     private javax.swing.JTextField textPrice;
     private javax.swing.JPanel viewClothing;
