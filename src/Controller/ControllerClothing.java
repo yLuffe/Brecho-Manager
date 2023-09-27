@@ -69,6 +69,22 @@ public class ControllerClothing {
         }
     }
 
+    // Delete
+    public boolean deleteClothing(int id) throws Exception {
+        try {
+            boolean isDeleted = database.deleteClothing(id);
+            this.mainView.updateTable(this.listClothes(selectedFilter));
+            return isDeleted;
+        } catch (Exception e) {
+            throw new Exception("Erro ao deletar", e);
+        }
+    }
+
+    // Procurar por ID
+    public Clothing findClothingById(int id) {
+        return database.getClothingById(id);
+    }
+
     // Comandos adicionar itens nas ComboBox
     public void loadComboColors(JComboBox<String>... comboBoxes) {
         for (JComboBox<String> comboBox : comboBoxes) {

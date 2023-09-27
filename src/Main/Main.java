@@ -2,7 +2,7 @@ package Main;
 
 import Database.ConnectionSQLite;
 import View.MainScreen;
-import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import javax.swing.UIManager;
 
 public class Main {
@@ -14,7 +14,7 @@ public class Main {
         UIManager.put("OptionPane.noButtonText", "Não");
 
         // Ativa o tema Dracula
-        FlatDarkPurpleIJTheme.setup();
+        FlatDraculaIJTheme.setup();
 
         // Mostra a tela inicial
         new MainScreen().setVisible(true);

@@ -61,6 +61,11 @@ public class Clothing {
     public Clothing() {
     }
 
+    // Construtor ID
+    public Clothing(int id) {
+        this.id = id;
+    }
+
     // Construtor sem ID
     public Clothing(String name, String description, String category, String size, String color, double price, boolean consigned, boolean newClothes, String customerName) {
         this.name = name;
