@@ -51,8 +51,7 @@ public class ControllerClothing {
             this.selectedFilter = filter;
             return clothes;
         } catch (Exception e) {
-            //throw new Exception("Erro ao listar roupas", e);
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return listClothes(null);
     }
@@ -81,8 +80,12 @@ public class ControllerClothing {
     }
 
     // Procurar por ID
-    public Clothing findClothingById(int id) {
-        return database.getClothingById(id);
+    public Clothing findClothingById(int id) throws Exception {
+        try {
+            return database.getClothingById(id);
+        } catch (Exception e) {
+            throw new Exception("Erro ao procurar por ID", e);
+        }
     }
 
     // Comandos adicionar itens nas ComboBox
@@ -102,11 +105,9 @@ public class ControllerClothing {
             comboBox.removeAllItems();
             for (String category : categoryFilter.getAvailableCategories()) {
                 comboBox.addItem(category);
-
             }
             comboBox.revalidate();
             comboBox.repaint();
         }
-
     }
 }

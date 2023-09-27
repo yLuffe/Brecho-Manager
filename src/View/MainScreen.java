@@ -30,11 +30,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         //  Obetém o CardLayout para alternar entre painéis
         cardLayout = (CardLayout) (panelCards.getLayout());
-
-        // BooleanRender
-        //jTableClothes.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
-        //jTableClothes.getColumnModel().getColumn(8).setCellRenderer(new BooleanRenderer());
-        ////jTableClothes.getColumnModel().getColumn(10).setCellRenderer(new BooleanRenderer());
     }
 
     // Métodos
@@ -62,6 +57,20 @@ public class MainScreen extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela\n" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void clearFields() {
+        textName.setText("");
+        textDescription.setText("");
+        jComboCategory.setSelectedIndex(0);
+        jComboSize.setSelectedIndex(0);
+        jComboColor.setSelectedIndex(0);
+        textPrice.setText("");
+        jCheckConsigned.setSelected(false);
+        jCheckNewClothing.setSelected(false);
+        jCheckNo1.setSelected(false);
+        jCheckNo2.setSelected(false);
+        textCustomerName.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -107,7 +116,6 @@ public class MainScreen extends javax.swing.JFrame {
         labelDescription = new javax.swing.JLabel();
         textPrice = new javax.swing.JTextField();
         labelPrice = new javax.swing.JLabel();
-        textFormattedPrice = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jComboCategory = new javax.swing.JComboBox<>();
         labelCategory = new javax.swing.JLabel();
@@ -369,6 +377,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButton2.setText("✖");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -403,12 +416,9 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelDescription)
                             .addComponent(labelName)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelPrice))
-                                .addGap(118, 118, 118)
-                                .addComponent(textFormattedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelPrice)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
@@ -426,9 +436,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(labelPrice)
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFormattedPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -740,21 +748,45 @@ public class MainScreen extends javax.swing.JFrame {
             }
             selectedClothing.setId(-1);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jBtnRemoveClothesActionPerformed
 
     private void jBtnViewClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnViewClothesActionPerformed
         cardLayout.show(panelCards, "cardView");
+        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnViewClothesActionPerformed
 
     private void jBtnAddClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothesActionPerformed
         cardLayout.show(panelCards, "cardAdd");
         jLabelTitle.setText("Cadastrar Peça");
+        selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
     private void jBtnEditClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditClothesActionPerformed
-        cardLayout.show(panelCards, "cardEdit");
-        jLabelTitle.setText("Editar Peça");
+        if (selectedClothing.getId() != -1) {
+            try {
+                // Comandos da tela
+                cardLayout.show(panelCards, "cardAdd");
+                jLabelTitle.setText("Editar Peça");
+
+                // Comandos Definir Valores
+                // Texto
+                textName.setText(selectedClothing.getName());
+                textDescription.setText(selectedClothing.getDescription());
+                textCustomerName.setText(selectedClothing.getCustomerName());
+                textPrice.setText(String.valueOf(selectedClothing.getPrice()));
+                // ComboBox
+                jComboCategory.setSelectedItem(selectedClothing.getCategory());
+                jComboColor.setSelectedItem(selectedClothing.getColor());
+                jComboSize.setSelectedItem(selectedClothing.getSize());
+                // CheckBox
+                (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
+                (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            }
+        }
     }//GEN-LAST:event_jBtnEditClothesActionPerformed
 
     private void textCustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCustomerNameActionPerformed
@@ -790,21 +822,25 @@ public class MainScreen extends javax.swing.JFrame {
             );
             // Verifica se valores são válidos
             clothing.clothingValidation();
+
             // Adiciona ao Banco de Dados
-            if (controller.createClothing(clothing) == true) {
-                // Mensagem Sucesso
-                JOptionPane.showMessageDialog(null, "Peça adicionada com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
-                // Limpa os Campos
-                textName.setText("");
-                textDescription.setText("");
-                jComboCategory.setSelectedIndex(0);
-                jComboSize.setSelectedIndex(0);
-                jComboColor.setSelectedIndex(0);
-                textPrice.setText("");
-                jCheckConsigned.setSelected(false);
-                jCheckNewClothing.setSelected(false);
-                textCustomerName.setText("");
+            int clothingId = selectedClothing.getId();
+
+            if (clothingId == -1) {
+                controller.createClothing(clothing);
+            } else /*if (clothingId != -1)*/ {
+                // Edita a peça
+                clothing.setId(clothingId);
+                controller.editClothing(clothing);
+                // Abre tela inicial
+                cardLayout.show(panelCards, "cardView");
+
             }
+            JOptionPane.showMessageDialog(null, "Peça " + (clothingId == -1 ? "adicionada" : "editada") + " com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpa os Campos
+            clearFields();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -854,6 +890,16 @@ public class MainScreen extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jTableClothesMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int option = JOptionPane.showConfirmDialog(null, "Deseja mesmo cancelar?\nDados não salvos serão perdidos!", "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+            cardLayout.show(panelCards, "cardView");
+            selectedClothing.setId(-1);
+            clearFields();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         // Create and display the form
@@ -922,7 +968,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panelCards;
     private javax.swing.JTextField textCustomerName;
     private javax.swing.JTextField textDescription;
-    private javax.swing.JFormattedTextField textFormattedPrice;
     private javax.swing.JTextField textName;
     private javax.swing.JTextField textPrice;
     private javax.swing.JPanel viewClothing;
