@@ -5,7 +5,10 @@ import Model.Clothing;
 import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import java.awt.CardLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +35,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         //  Obetém o CardLayout para alternar entre painéis
         cardLayout = (CardLayout) (panelCards.getLayout());
-        
+
         // Habilita opção de ordenar tabela pelo Header
         sortTable();
     }
@@ -54,7 +57,7 @@ public class MainScreen extends javax.swing.JFrame {
                 model.setValueAt(clothing.getCategory(), row, 4);
                 model.setValueAt(clothing.getSize(), row, 5);
                 model.setValueAt(clothing.getColor(), row, 6);
-                model.setValueAt("R$ " + clothing.getPrice(), row, 2);
+                model.setValueAt( clothing.getPrice(), row, 2);
                 model.setValueAt(clothing.isConsigned() ? "Sim" : "Não", row, 7);
                 model.setValueAt(clothing.isNewClothes() ? "Sim" : "Não", row, 8);
                 model.setValueAt(clothing.getCustomerName(), row, 9);
@@ -63,12 +66,39 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela\n" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void sortTable(){
+
+    // Adicionar filtro no Header da tabela
+    private void sortTable() {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTableClothes.getModel());
+        
+        // Comparador numérico para coluna de Preço
+        Comparator<Object> numericComparator = (obj1, obj2) -> {
+            Double num1 = Double.parseDouble(obj1.toString());
+            Double num2 = Double.parseDouble(obj2.toString());
+            return Double.compare(num1, num2);
+        };
+        rowSorter.setComparator(2, numericComparator);
+        // Ordena a tabela
         jTableClothes.setRowSorter(rowSorter);
     }
 
+    // Definir dados nos campos
+    private void setFields() {
+        // Texto
+        textName.setText(selectedClothing.getName());
+        textDescription.setText(selectedClothing.getDescription());
+        textCustomerName.setText(selectedClothing.getCustomerName());
+        textPrice.setText(String.valueOf(selectedClothing.getPrice()));
+        // ComboBox
+        jComboCategory.setSelectedItem(selectedClothing.getCategory());
+        jComboColor.setSelectedItem(selectedClothing.getColor());
+        jComboSize.setSelectedItem(selectedClothing.getSize());
+        // CheckBox
+        (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
+        (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
+    }
+
+    // Remover dados nos campos
     public void clearFields() {
         textName.setText("");
         textDescription.setText("");
@@ -774,12 +804,14 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnViewClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnViewClothesActionPerformed
         cardLayout.show(panelCards, "cardView");
+        clearFields();
         selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnViewClothesActionPerformed
 
     private void jBtnAddClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothesActionPerformed
         cardLayout.show(panelCards, "cardAdd");
         jLabelTitle.setText("Cadastrar Peça");
+        clearFields();
         selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
@@ -789,20 +821,7 @@ public class MainScreen extends javax.swing.JFrame {
                 // Comandos da tela
                 cardLayout.show(panelCards, "cardAdd");
                 jLabelTitle.setText("Editar Peça");
-
-                // Comandos Definir Valores
-                // Texto
-                textName.setText(selectedClothing.getName());
-                textDescription.setText(selectedClothing.getDescription());
-                textCustomerName.setText(selectedClothing.getCustomerName());
-                textPrice.setText(String.valueOf(selectedClothing.getPrice()));
-                // ComboBox
-                jComboCategory.setSelectedItem(selectedClothing.getCategory());
-                jComboColor.setSelectedItem(selectedClothing.getColor());
-                jComboSize.setSelectedItem(selectedClothing.getSize());
-                // CheckBox
-                (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
-                (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
+                setFields();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
@@ -904,6 +923,12 @@ public class MainScreen extends javax.swing.JFrame {
             if (selectedRow >= 0) {
                 this.selectedClothing = controller.findClothingById((int) model.getValueAt(selectedRow, 0));
             }
+            if (evt.getClickCount() == 2) {
+                // Double Click abre página de edição
+                cardLayout.show(panelCards, "cardAdd");
+                jLabelTitle.setText("Editar Peça");
+                setFields();
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -923,13 +948,13 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchFiltersActionPerformed
         try {
-            String filter = jFilterCategory.getSelectedItem().toString() + "," 
+            String filter = jFilterCategory.getSelectedItem().toString() + ","
                     + jFilterColor.getSelectedItem() + ","
                     + jFilterSize.getSelectedItem() + ","
                     + jMultipleFilters.getSelectedItem();
-            
+
             updateTable(controller.listClothes(filter));
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
