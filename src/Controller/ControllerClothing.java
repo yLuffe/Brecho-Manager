@@ -6,8 +6,6 @@ import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import View.MainScreen;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.swing.JComboBox;
@@ -46,37 +44,33 @@ public class ControllerClothing {
     // Read
     public ArrayList<Clothing> listClothes(String filter) {
         try {
-        ArrayList<Clothing> clothes = database.getAllClothing();
-        ArrayList<Clothing> filteredClothes = new ArrayList<>();
+            ArrayList<Clothing> clothes = database.getAllClothing();
+            ArrayList<Clothing> filteredClothes = new ArrayList<>();
 
-        String[] filters = filter.split(",");
+            String[] filters = filter.split(",");
 
-        // Crie um filtro condicional para cada critério de filtro
-        Predicate<Clothing> categoryFilter = clothing ->
-            filters[0].equals("Todas") || clothing.getCategory().contains(filters[0]);
+            // Crie um filtro condicional para cada critério de filtro
+            Predicate<Clothing> categoryFilter = clothing
+                    -> filters[0].equals("Todas") || clothing.getCategory().contains(filters[0]);
 
-        Predicate<Clothing> colorFilter = clothing ->
-            filters[1].equals("Todas") || clothing.getColor().contains(filters[1]);
+            Predicate<Clothing> colorFilter = clothing
+                    -> filters[1].equals("Todas") || clothing.getColor().contains(filters[1]);
 
-        Predicate<Clothing> sizeFilter = clothing ->
-            filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
+            Predicate<Clothing> sizeFilter = clothing
+                    -> filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
 
-        //Predicate<Clothing> multiFilter = clothing ->
-           // filters[3].equals("Padrão") || clothing.getSize().contains(filters[2]);
+            // Aplique os filtros condicionais encadeados
+            filteredClothes = clothes.stream()
+                    .filter(categoryFilter)
+                    .filter(colorFilter)
+                    .filter(sizeFilter)
+                    .collect(Collectors.toCollection(ArrayList::new));
 
-        // Aplique os filtros condicionais encadeados
-        filteredClothes = clothes.stream()
-            .filter(categoryFilter)
-            .filter(colorFilter)
-            .filter(sizeFilter)
-            //.filter(multiFilter)
-            .collect(Collectors.toCollection(ArrayList::new));
-
-        return filteredClothes;
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e.getMessage());
-    }
-    return listClothes(null);
+            return filteredClothes;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return listClothes(null);
     }
 
     // Update
