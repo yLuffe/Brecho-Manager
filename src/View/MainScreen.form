@@ -274,8 +274,10 @@
                                           <Component id="jLabelPeça" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="jBtnSearch" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace pref="470" max="32767" attributes="0"/>
+                                      <Component id="jBtnSearchName" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <EmptySpace pref="431" max="32767" attributes="0"/>
+                                      <Component id="jBtnSearchFilters" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jFilterCategory" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Component id="jLabelCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -312,12 +314,13 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="2" attributes="0">
-                                          <Component id="jBtnSearch" alignment="2" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jBtnSearchName" alignment="2" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jTextFilterByName" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jFilterCategory" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jFilterSize" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jFilterColor" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jMultipleFilters" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jBtnSearchFilters" alignment="2" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   </Group>
@@ -398,7 +401,7 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
-                                    <StringItem index="0" value="Filtros"/>
+                                    <StringItem index="0" value="Padr&#xe3;o"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -406,7 +409,7 @@
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jBtnSearch">
+                            <Component class="javax.swing.JButton" name="jBtnSearchName">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Dialog" size="14" style="0"/>
@@ -428,6 +431,14 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Filtros:"/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="jBtnSearchFilters">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="\ud83d\udd0e" containsInvalidXMLChars="true"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSearchFiltersActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -668,10 +679,8 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="labelDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="labelName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                      <Component id="textPrice" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                                      <Component id="labelPrice" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="textPrice" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Component id="labelPrice" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>

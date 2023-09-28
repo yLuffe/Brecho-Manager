@@ -6,6 +6,8 @@ import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import View.MainScreen;
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -13,7 +15,7 @@ public class ControllerClothing {
 
     ClothingDAO database = new ClothingDAO();
     MainScreen mainView = null;
-    String selectedFilter = "";
+    String selectedFilter = "Todas,Todas,Todos,Padrão";
     ColorFilter colorFilter = new ColorFilter();
     CategoryFilter categoryFilter = new CategoryFilter();
 
@@ -45,11 +47,26 @@ public class ControllerClothing {
             ArrayList<Clothing> clothes = database.getAllClothing();
             ArrayList<Clothing> filteredClothes = new ArrayList<>();
 
-            switch (filter.toLowerCase().trim()) {
-            }
+            String[] filters = filter.split(",");
 
-            this.selectedFilter = filter;
-            return clothes;
+            // Crie um filtro condicional para cada critério de filtro
+            Predicate<Clothing> categoryFilter = clothing
+                    -> filters[0].equals("Todas") || clothing.getCategory().contains(filters[0]);
+
+            Predicate<Clothing> colorFilter = clothing
+                    -> filters[1].equals("Todas") || clothing.getColor().contains(filters[1]);
+
+            Predicate<Clothing> sizeFilter = clothing
+                    -> filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
+
+            // Aplique os filtros condicionais encadeados
+            filteredClothes = clothes.stream()
+                    .filter(categoryFilter)
+                    .filter(colorFilter)
+                    .filter(sizeFilter)
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+            return filteredClothes;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
