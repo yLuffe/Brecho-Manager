@@ -18,7 +18,7 @@ public class ControllerClothing {
     ColorFilter colorFilter = new ColorFilter();
     CategoryFilter categoryFilter = new CategoryFilter();
     // Ordem Filtro (Categoria, Cor, Tamanho) - Adicionar filtro nome
-    String selectedFilter = "Todas,Todas,Todos";
+    String selectedFilter = "Todas,Todas,Todos,empty";
 
     // Empty Constructor
     public ControllerClothing() {
@@ -60,11 +60,15 @@ public class ControllerClothing {
             Predicate<Clothing> sizeFilter = clothing
                     -> filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
 
+            Predicate<Clothing> nameFilter = clothing
+                    -> filters[3].equalsIgnoreCase("empty") || clothing.getName().toLowerCase().contains(filters[3].toLowerCase());
+
             // Aplica os filtros condicionais encadeados
             filteredClothes = clothes.stream()
                     .filter(categoryFilter)
                     .filter(colorFilter)
                     .filter(sizeFilter)
+                    .filter(nameFilter)
                     .collect(Collectors.toCollection(ArrayList::new));
 
             return filteredClothes;

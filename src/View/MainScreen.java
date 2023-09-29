@@ -5,12 +5,10 @@ import Model.Clothing;
 import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
 import java.awt.CardLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -283,6 +281,12 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabelPeça.setText("Peça");
 
+        jTextFilterByName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFilterByNameKeyPressed(evt);
+            }
+        });
+
         jLabelCategoria.setText("Categoria:");
 
         jFilterSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "PP", "P", "M", "G", "GG", "XG", "G1", "G2", "G3", "G4" }));
@@ -292,6 +296,11 @@ public class MainScreen extends javax.swing.JFrame {
         jBtnSearchName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSearchNameActionPerformed(evt);
+            }
+        });
+        jBtnSearchName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBtnSearchNameKeyPressed(evt);
             }
         });
 
@@ -960,9 +969,13 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchFiltersActionPerformed
         try {
+            // Filtro ComboBoxes + Nome Nulo
             String filter = jFilterCategory.getSelectedItem().toString() + ","
                     + jFilterColor.getSelectedItem() + ","
-                    + jFilterSize.getSelectedItem();
+                    + jFilterSize.getSelectedItem() + ","
+                    + "empty";
+            // Limpa a caixa de nome
+            jTextFilterByName.setText(null);
             // Atualiza a tabela com os filtros
             updateTable(controller.listClothes(filter));
 
@@ -972,8 +985,32 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSearchFiltersActionPerformed
 
     private void jBtnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchNameActionPerformed
-
+        try {
+            // Filtro padrão
+            String filter = "Todas,Todas,Todos,";
+            // Filtro = nomeProcurado se nomeProcurado != null
+            String nameFilter = jTextFilterByName.getText().trim();
+            filter += nameFilter.isBlank() ? "empty" : nameFilter;
+            // Limpa as ComboBoxes
+            for (JComboBox<?> comboBox : new JComboBox<?>[]{jFilterCategory, jFilterColor, jFilterSize}) {
+                comboBox.setSelectedIndex(0);
+            }
+            // Atualiza a tabela
+            updateTable(controller.listClothes(filter));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_jBtnSearchNameActionPerformed
+
+    private void jBtnSearchNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBtnSearchNameKeyPressed
+
+    }//GEN-LAST:event_jBtnSearchNameKeyPressed
+
+    private void jTextFilterByNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFilterByNameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jBtnSearchName.doClick();
+        }
+    }//GEN-LAST:event_jTextFilterByNameKeyPressed
 
     public static void main(String args[]) {
         // Create and display the form
