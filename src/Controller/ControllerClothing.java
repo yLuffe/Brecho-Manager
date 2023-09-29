@@ -13,11 +13,12 @@ import javax.swing.JOptionPane;
 
 public class ControllerClothing {
 
-    ClothingDAO database = new ClothingDAO();
     MainScreen mainView = null;
-    String selectedFilter = "Todas,Todas,Todos,Padrão";
+    ClothingDAO database = new ClothingDAO();
     ColorFilter colorFilter = new ColorFilter();
     CategoryFilter categoryFilter = new CategoryFilter();
+    // Ordem Filtro (Categoria, Cor, Tamanho) - Adicionar filtro nome
+    String selectedFilter = "Todas,Todas,Todos";
 
     // Empty Constructor
     public ControllerClothing() {
@@ -59,7 +60,7 @@ public class ControllerClothing {
             Predicate<Clothing> sizeFilter = clothing
                     -> filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
 
-            // Aplique os filtros condicionais encadeados
+            // Aplica os filtros condicionais encadeados
             filteredClothes = clothes.stream()
                     .filter(categoryFilter)
                     .filter(colorFilter)

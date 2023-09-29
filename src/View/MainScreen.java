@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -57,7 +59,7 @@ public class MainScreen extends javax.swing.JFrame {
                 model.setValueAt(clothing.getCategory(), row, 4);
                 model.setValueAt(clothing.getSize(), row, 5);
                 model.setValueAt(clothing.getColor(), row, 6);
-                model.setValueAt( clothing.getPrice(), row, 2);
+                model.setValueAt(clothing.getPrice(), row, 2);
                 model.setValueAt(clothing.isConsigned() ? "Sim" : "Não", row, 7);
                 model.setValueAt(clothing.isNewClothes() ? "Sim" : "Não", row, 8);
                 model.setValueAt(clothing.getCustomerName(), row, 9);
@@ -70,16 +72,29 @@ public class MainScreen extends javax.swing.JFrame {
     // Adicionar filtro no Header da tabela
     private void sortTable() {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTableClothes.getModel());
-        
-        // Comparador numérico para coluna de Preço
-        Comparator<Object> numericComparator = (obj1, obj2) -> {
-            Double num1 = Double.parseDouble(obj1.toString());
-            Double num2 = Double.parseDouble(obj2.toString());
+
+        // Comparador numérico para colunas com número
+        Comparator<Object> numericComparator = (Object obj1, Object obj2) -> {
+            Double num1 = Double.valueOf(obj1.toString().replaceAll("[^0-9.]", ""));
+            Double num2 = Double.valueOf(obj2.toString().replaceAll("[^0-9.]", ""));
             return Double.compare(num1, num2);
         };
+
+        // Seleciona ordenas as colunas desejadas
         rowSorter.setComparator(2, numericComparator);
-        // Ordena a tabela
+        rowSorter.setComparator(0, numericComparator);
+
+        // Ordena a tabela como um todo
         jTableClothes.setRowSorter(rowSorter);
+
+        // Para a coluna de preço, adiciona R$
+        for (int row = 0; row < jTableClothes.getRowCount(); row++) {
+            Object value = jTableClothes.getValueAt(row, 2);
+            if (value != null) {
+                String formattedValue = "R$ " + value.toString();
+                jTableClothes.setValueAt(formattedValue, row, 2);
+            }
+        }
     }
 
     // Definir dados nos campos
@@ -136,11 +151,9 @@ public class MainScreen extends javax.swing.JFrame {
         jFilterCategory = new javax.swing.JComboBox<>();
         jFilterSize = new javax.swing.JComboBox<>();
         jFilterColor = new javax.swing.JComboBox<>();
-        jMultipleFilters = new javax.swing.JComboBox<>();
         jBtnSearchName = new javax.swing.JButton();
         jLabelTamanho = new javax.swing.JLabel();
         jLabelCor = new javax.swing.JLabel();
-        jLabelFiltros = new javax.swing.JLabel();
         jBtnSearchFilters = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPanel = new javax.swing.JScrollPane();
@@ -271,16 +284,17 @@ public class MainScreen extends javax.swing.JFrame {
 
         jFilterSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "PP", "P", "M", "G", "GG", "XG", "G1", "G2", "G3", "G4" }));
 
-        jMultipleFilters.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Padrão" }));
-
         jBtnSearchName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jBtnSearchName.setText("🔎");
+        jBtnSearchName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSearchNameActionPerformed(evt);
+            }
+        });
 
         jLabelTamanho.setText("Tamanho:");
 
         jLabelCor.setText("Cor:");
-
-        jLabelFiltros.setText("Filtros:");
 
         jBtnSearchFilters.setText("🔎");
         jBtnSearchFilters.addActionListener(new java.awt.event.ActionListener() {
@@ -300,9 +314,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabelPeça))
                 .addGap(5, 5, 5)
                 .addComponent(jBtnSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
-                .addComponent(jBtnSearchFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 511, Short.MAX_VALUE)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCategoria))
@@ -312,13 +324,12 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabelCor))
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTamanho))
-                .addGap(10, 10, 10)
-                .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelFiltros)
-                    .addComponent(jMultipleFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                    .addComponent(jLabelTamanho)
+                    .addGroup(jPanelFiltersLayout.createSequentialGroup()
+                        .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnSearchFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39))
         );
         jPanelFiltersLayout.setVerticalGroup(
             jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,8 +339,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabelPeça)
                     .addComponent(jLabelCategoria)
                     .addComponent(jLabelTamanho)
-                    .addComponent(jLabelCor)
-                    .addComponent(jLabelFiltros))
+                    .addComponent(jLabelCor))
                 .addGap(3, 3, 3)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtnSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,7 +347,6 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFilterColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMultipleFilters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnSearchFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
@@ -950,15 +959,18 @@ public class MainScreen extends javax.swing.JFrame {
         try {
             String filter = jFilterCategory.getSelectedItem().toString() + ","
                     + jFilterColor.getSelectedItem() + ","
-                    + jFilterSize.getSelectedItem() + ","
-                    + jMultipleFilters.getSelectedItem();
+                    + jFilterSize.getSelectedItem();
 
+            // Atualiza a tabela com os filtros
             updateTable(controller.listClothes(filter));
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jBtnSearchFiltersActionPerformed
+
+    private void jBtnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchNameActionPerformed
+
+    }//GEN-LAST:event_jBtnSearchNameActionPerformed
 
     public static void main(String args[]) {
         // Create and display the form
@@ -995,13 +1007,11 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelCor;
-    private javax.swing.JLabel jLabelFiltros;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelPeça;
     private javax.swing.JLabel jLabelTamanho;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JTabbedPane jMainTabbedPane;
-    private javax.swing.JComboBox<String> jMultipleFilters;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
