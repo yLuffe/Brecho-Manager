@@ -37,9 +37,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         //  Obetém o CardLayout para alternar entre painéis
         cardLayout = (CardLayout) (panelCards.getLayout());
-
-        // Habilita opção de ordenar tabela pelo Header
-        sortTable();
     }
 
     // Métodos
@@ -63,7 +60,10 @@ public class MainScreen extends javax.swing.JFrame {
                 model.setValueAt(clothing.isConsigned() ? "Sim" : "Não", row, 7);
                 model.setValueAt(clothing.isNewClothes() ? "Sim" : "Não", row, 8);
                 model.setValueAt(clothing.getCustomerName(), row, 9);
+
             }
+            // Habilita opção de ordenar tabela pelo Header e adiciona R$ em Preço
+            sortTable();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela\n" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -73,10 +73,22 @@ public class MainScreen extends javax.swing.JFrame {
     private void sortTable() {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTableClothes.getModel());
 
+        // Para a coluna de preço, adiciona R$
+        for (int row = 0; row < jTableClothes.getRowCount(); row++) {
+            Object value = jTableClothes.getValueAt(row, 2);
+            if (value != null) {
+                String formattedValue = "R$ " + value.toString();
+                jTableClothes.setValueAt(formattedValue, row, 2);
+            }
+        }
+
         // Comparador numérico para colunas com número
         Comparator<Object> numericComparator = (Object obj1, Object obj2) -> {
-            Double num1 = Double.valueOf(obj1.toString().replaceAll("[^0-9.]", ""));
-            Double num2 = Double.valueOf(obj2.toString().replaceAll("[^0-9.]", ""));
+            String str1 = obj1.toString().replaceAll("[^0-9.]", "");
+            String str2 = obj2.toString().replaceAll("[^0-9.]", "");
+
+            Double num1 = Double.valueOf(str1);
+            Double num2 = Double.valueOf(str2);
             return Double.compare(num1, num2);
         };
 
@@ -86,15 +98,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         // Ordena a tabela como um todo
         jTableClothes.setRowSorter(rowSorter);
-
-        // Para a coluna de preço, adiciona R$
-        for (int row = 0; row < jTableClothes.getRowCount(); row++) {
-            Object value = jTableClothes.getValueAt(row, 2);
-            if (value != null) {
-                String formattedValue = "R$ " + value.toString();
-                jTableClothes.setValueAt(formattedValue, row, 2);
-            }
-        }
     }
 
     // Definir dados nos campos
@@ -960,9 +963,9 @@ public class MainScreen extends javax.swing.JFrame {
             String filter = jFilterCategory.getSelectedItem().toString() + ","
                     + jFilterColor.getSelectedItem() + ","
                     + jFilterSize.getSelectedItem();
-
             // Atualiza a tabela com os filtros
             updateTable(controller.listClothes(filter));
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
