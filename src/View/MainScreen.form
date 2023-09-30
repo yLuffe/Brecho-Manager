@@ -275,7 +275,9 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                       <Component id="jBtnSearchName" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace pref="511" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtnReloadTable" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <EmptySpace pref="477" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jFilterCategory" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Component id="jLabelCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -316,6 +318,7 @@
                                           <Component id="jFilterSize" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jFilterColor" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jBtnSearchFilters" alignment="2" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jBtnReloadTable" alignment="2" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   </Group>
@@ -401,6 +404,7 @@
                                   <Font name="Dialog" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="\ud83d\udd0e" containsInvalidXMLChars="true"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Procurar por Nome"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSearchNameActionPerformed"/>
@@ -420,9 +424,22 @@
                             <Component class="javax.swing.JButton" name="jBtnSearchFilters">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="\ud83d\udd0e" containsInvalidXMLChars="true"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Aplicar Filtros e Procurar"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSearchFiltersActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="jBtnReloadTable">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Dialog" size="14" style="0"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="\ud83d\udd03" containsInvalidXMLChars="true"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Recarregar e Atualizar"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnReloadTableActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
