@@ -958,16 +958,14 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchFiltersActionPerformed
         try {
-            // Filtro ComboBoxes + Nome Nulo
-            String filter = jFilterCategory.getSelectedItem().toString() + ","
-                    + jFilterColor.getSelectedItem() + ","
-                    + jFilterSize.getSelectedItem() + ","
-                    + "empty";
             // Limpa a caixa de nome
             jTextFilterByName.setText(null);
             // Atualiza a tabela com os filtros
-            updateTable(controller.listClothes(filter));
-
+            updateTable(controller.listClothes("empty",
+                    jFilterCategory.getSelectedItem().toString(),
+                    jFilterColor.getSelectedItem().toString(),
+                    jFilterSize.getSelectedItem().toString()
+            ));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -975,17 +973,16 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchNameActionPerformed
         try {
-            // Filtro padrão
-            String filter = "Todas,Todas,Todos,";
-            // Filtro = nomeProcurado se nomeProcurado != null
-            String nameFilter = jTextFilterByName.getText().trim();
-            filter += nameFilter.isBlank() ? "empty" : nameFilter;
             // Limpa as ComboBoxes
             for (JComboBox<?> comboBox : new JComboBox<?>[]{jFilterCategory, jFilterColor, jFilterSize}) {
                 comboBox.setSelectedIndex(0);
             }
             // Atualiza a tabela
-            updateTable(controller.listClothes(filter));
+            updateTable(controller.listClothes(jTextFilterByName.getText().trim(),
+                    jFilterCategory.getSelectedItem().toString(),
+                    jFilterColor.getSelectedItem().toString(),
+                    jFilterSize.getSelectedItem().toString()
+            ));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
