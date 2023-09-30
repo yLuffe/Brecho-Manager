@@ -118,6 +118,37 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
 
+    // Limpa os Filtros
+    public void updateFilters(boolean fName, boolean fComboBoxes) throws Exception {
+        String name = "empty";
+        String category = "Todas";
+        String color = "Todas";
+        String size = "Todos";
+
+        // Define campo nome para NULL
+        if (fName) {
+            jTextFilterByName.setText(null);
+        }
+        if (!fName) {
+            name = jTextFilterByName.getText();
+        }
+
+        // Define ComboBoxes para valor padrão
+        JComboBox<?>[] comboBoxes = new JComboBox<?>[]{jFilterCategory, jFilterColor, jFilterSize};
+        if (fComboBoxes) {
+            for (JComboBox c : comboBoxes) {
+                c.setSelectedIndex(0);
+            }
+        }
+        if (!fComboBoxes) {
+            category = jFilterCategory.getSelectedItem().toString();
+            color = jFilterColor.getSelectedItem().toString();
+            size = jFilterSize.getSelectedItem().toString();
+        }
+
+        updateTable(controller.listClothes(name, category, color, size));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,6 +176,7 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelTamanho = new javax.swing.JLabel();
         jLabelCor = new javax.swing.JLabel();
         jBtnSearchFilters = new javax.swing.JButton();
+        jBtnReloadTable = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPanel = new javax.swing.JScrollPane();
         jTableClothes = new javax.swing.JTable();
@@ -282,6 +314,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jBtnSearchName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jBtnSearchName.setText("🔎");
+        jBtnSearchName.setToolTipText("Procurar por Nome");
         jBtnSearchName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSearchNameActionPerformed(evt);
@@ -298,9 +331,19 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelCor.setText("Cor:");
 
         jBtnSearchFilters.setText("🔎");
+        jBtnSearchFilters.setToolTipText("Aplicar Filtros e Procurar");
         jBtnSearchFilters.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSearchFiltersActionPerformed(evt);
+            }
+        });
+
+        jBtnReloadTable.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jBtnReloadTable.setText("🔃");
+        jBtnReloadTable.setToolTipText("Recarregar e Atualizar");
+        jBtnReloadTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnReloadTableActionPerformed(evt);
             }
         });
 
@@ -315,7 +358,9 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabelPeça))
                 .addGap(5, 5, 5)
                 .addComponent(jBtnSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 511, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnReloadTable, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 477, Short.MAX_VALUE)
                 .addGroup(jPanelFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCategoria))
@@ -348,7 +393,8 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFilterSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFilterColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnSearchFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnSearchFilters, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnReloadTable, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -958,14 +1004,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchFiltersActionPerformed
         try {
-            // Limpa a caixa de nome
-            jTextFilterByName.setText(null);
-            // Atualiza a tabela com os filtros
-            updateTable(controller.listClothes("empty",
-                    jFilterCategory.getSelectedItem().toString(),
-                    jFilterColor.getSelectedItem().toString(),
-                    jFilterSize.getSelectedItem().toString()
-            ));
+            updateFilters(true, false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -973,16 +1012,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchNameActionPerformed
         try {
-            // Limpa as ComboBoxes
-            for (JComboBox<?> comboBox : new JComboBox<?>[]{jFilterCategory, jFilterColor, jFilterSize}) {
-                comboBox.setSelectedIndex(0);
-            }
-            // Atualiza a tabela
-            updateTable(controller.listClothes(jTextFilterByName.getText().trim(),
-                    jFilterCategory.getSelectedItem().toString(),
-                    jFilterColor.getSelectedItem().toString(),
-                    jFilterSize.getSelectedItem().toString()
-            ));
+            updateFilters(false, true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -997,6 +1027,15 @@ public class MainScreen extends javax.swing.JFrame {
             jBtnSearchName.doClick();
         }
     }//GEN-LAST:event_jTextFilterByNameKeyPressed
+
+    private void jBtnReloadTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnReloadTableActionPerformed
+        try {
+            updateFilters(true, true);
+            updateTable(controller.listClothes());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jBtnReloadTableActionPerformed
 
     public static void main(String args[]) {
         // Create and display the form
@@ -1013,6 +1052,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton jBtnAddClothing;
     private javax.swing.JButton jBtnAddColor;
     private javax.swing.JButton jBtnEditClothes;
+    private javax.swing.JButton jBtnReloadTable;
     private javax.swing.JButton jBtnRemoveClothes;
     private javax.swing.JButton jBtnSearchFilters;
     private javax.swing.JButton jBtnSearchName;
