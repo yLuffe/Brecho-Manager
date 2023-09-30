@@ -17,54 +17,38 @@ public class ControllerClothing {
     ClothingDAO database = new ClothingDAO();
     ColorFilter colorFilter = new ColorFilter();
     CategoryFilter categoryFilter = new CategoryFilter();
-    // Ordem Filtro (Categoria, Cor, Tamanho) - Adicionar filtro nome
-    String selectedFilter = "Todas,Todas,Todos,empty";
 
     // Empty Constructor
     public ControllerClothing() {
     }
 
-    public ControllerClothing(MainScreen mainScreen) {
+    public ControllerClothing(MainScreen mainScreen) throws Exception {
         this.mainView = mainScreen;
         // Atualizar Tabela
-        this.mainView.updateTable(this.listClothes(selectedFilter));
+        this.mainView.updateTable(this.listClothes());
     }
 
-    // Create
-    public boolean createClothing(Clothing clothes) throws Exception {
+    // Read + Filters
+    public ArrayList<Clothing> listClothes(String fName, String fCategory, String fColor, String fSize) throws Exception {
         try {
-            boolean isCreated = database.addClothing(clothes);
-            // Atualizar Tabela
-            this.mainView.updateTable(this.listClothes(selectedFilter));
-            return isCreated;
-        } catch (Exception e) {
-            throw new Exception("Erro adicionar ao banco de dados", e);
-        }
-    }
-
-    // Read
-    public ArrayList<Clothing> listClothes(String filter) {
-        try {
-            ArrayList<Clothing> clothes = database.getAllClothing();
+            ArrayList<Clothing> allClothes = database.getAllClothing();
             ArrayList<Clothing> filteredClothes = new ArrayList<>();
-
-            String[] filters = filter.split(",");
 
             // Crie um filtro condicional para cada critério de filtro
             Predicate<Clothing> categoryFilter = clothing
-                    -> filters[0].equals("Todas") || clothing.getCategory().contains(filters[0]);
+                    -> fCategory.equals("Todas") || clothing.getCategory().contains(fCategory);
 
             Predicate<Clothing> colorFilter = clothing
-                    -> filters[1].equals("Todas") || clothing.getColor().contains(filters[1]);
+                    -> fColor.equals("Todas") || clothing.getColor().contains(fColor);
 
             Predicate<Clothing> sizeFilter = clothing
-                    -> filters[2].equals("Todos") || clothing.getSize().contains(filters[2]);
+                    -> fSize.equals("Todos") || clothing.getSize().contains(fSize);
 
             Predicate<Clothing> nameFilter = clothing
-                    -> filters[3].equalsIgnoreCase("empty") || clothing.getName().toLowerCase().contains(filters[3].toLowerCase());
+                    -> fName.equalsIgnoreCase("empty") || clothing.getName().toLowerCase().contains(fName.toLowerCase());
 
             // Aplica os filtros condicionais encadeados
-            filteredClothes = clothes.stream()
+            filteredClothes = allClothes.stream()
                     .filter(categoryFilter)
                     .filter(colorFilter)
                     .filter(sizeFilter)
@@ -73,9 +57,30 @@ public class ControllerClothing {
 
             return filteredClothes;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            throw new Exception("Erro ao carregar dados");
         }
-        return listClothes(null);
+    }
+
+    // Overload de listClothes
+    public ArrayList<Clothing> listClothes() throws Exception {
+        try {
+            ArrayList<Clothing> allClothes = database.getAllClothing();
+            return allClothes;
+        } catch (Exception e) {
+            throw new Exception("Erro ao carregar dados!");
+        }
+    }
+
+    // Create
+    public boolean createClothing(Clothing clothes) throws Exception {
+        try {
+            boolean isCreated = database.addClothing(clothes);
+            // Atualizar Tabela
+            this.mainView.updateTable(this.listClothes());
+            return isCreated;
+        } catch (Exception e) {
+            throw new Exception("Erro adicionar ao banco de dados", e);
+        }
     }
 
     // Update
@@ -83,7 +88,7 @@ public class ControllerClothing {
         try {
             boolean isUpdated = database.updateClothing(clothes);
             // Atualizar Tabela
-            this.mainView.updateTable(this.listClothes(selectedFilter));
+            this.mainView.updateTable(this.listClothes());
             return isUpdated;
         } catch (Exception e) {
             throw new Exception("Erro ao Editar", e);
@@ -94,7 +99,7 @@ public class ControllerClothing {
     public boolean deleteClothing(int id) throws Exception {
         try {
             boolean isDeleted = database.deleteClothing(id);
-            this.mainView.updateTable(this.listClothes(selectedFilter));
+            this.mainView.updateTable(this.listClothes());
             return isDeleted;
         } catch (Exception e) {
             throw new Exception("Erro ao deletar", e);
