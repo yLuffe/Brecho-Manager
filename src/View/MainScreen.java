@@ -149,37 +149,6 @@ public class MainScreen extends javax.swing.JFrame {
         updateTable(controller.listClothes(name, category, color, size));
     }
 
-    // Limpa os Filtros
-    public void updateFilters(boolean fName, boolean fComboBoxes) throws Exception {
-        String name = "empty";
-        String category = "Todas";
-        String color = "Todas";
-        String size = "Todos";
-
-        // Define campo nome para NULL
-        if (fName) {
-            jTextFilterByName.setText(null);
-        }
-        if (!fName) {
-            name = jTextFilterByName.getText();
-        }
-
-        // Define ComboBoxes para valor padrão
-        JComboBox<?>[] comboBoxes = new JComboBox<?>[]{jFilterCategory, jFilterColor, jFilterSize};
-        if (fComboBoxes) {
-            for (JComboBox c : comboBoxes) {
-                c.setSelectedIndex(0);
-            }
-        }
-        if (!fComboBoxes) {
-            category = jFilterCategory.getSelectedItem().toString();
-            color = jFilterColor.getSelectedItem().toString();
-            size = jFilterSize.getSelectedItem().toString();
-        }
-
-        updateTable(controller.listClothes(name, category, color, size));
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
