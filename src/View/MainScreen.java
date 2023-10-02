@@ -98,23 +98,23 @@ public class MainScreen extends javax.swing.JFrame {
     // Quando boolean for TRUE, limpa os campos, quando for FALSE, pega os dados de selectedClothing e coloca nos campos
     private void updateFields(boolean clearFields) {
         // Texto
-        textName.setText(!clearFields ? selectedClothing.getName() : "");
-        textDescription.setText(!clearFields ? selectedClothing.getDescription() : "");
-        textCustomerName.setText(!clearFields ? selectedClothing.getCustomerName() : "");
-        textPrice.setText(!clearFields ? String.valueOf(selectedClothing.getPrice()) : "");
+        textName.setText(clearFields ? "" : selectedClothing.getName());
+        textDescription.setText(clearFields ? "" : selectedClothing.getDescription());
+        textCustomerName.setText(clearFields ? "" : selectedClothing.getCustomerName());
+        textPrice.setText(clearFields ? "" : String.valueOf(selectedClothing.getPrice()));
         // ComboBox
-        jComboCategory.setSelectedItem(!clearFields ? selectedClothing.getCategory() : "Todas");
-        jComboColor.setSelectedItem(!clearFields ? selectedClothing.getColor() : "Todas");
-        jComboSize.setSelectedItem(!clearFields ? selectedClothing.getSize() : "Todos");
+        jComboCategory.setSelectedItem(clearFields ? "Todas" : selectedClothing.getCategory());
+        jComboColor.setSelectedItem(clearFields ? "Todas" : selectedClothing.getColor());
+        jComboSize.setSelectedItem(clearFields ? "Todos" : selectedClothing.getSize());
         // CheckBox
-        if (!clearFields) {
-            (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
-            (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
-        } else {
+        if (clearFields) {
             jCheckConsigned.setSelected(false);
             jCheckNewClothing.setSelected(false);
             jCheckNo1.setSelected(false);
             jCheckNo2.setSelected(false);
+        } else {
+            (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
+            (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
         }
     }
 
