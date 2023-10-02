@@ -1,6 +1,6 @@
 package View;
 
-import Controller.ControllerClothing;
+import Controller.Clothing.ControllerClothing;
 import Model.Clothing;
 import Model.Filter.CategoryFilter;
 import Model.Filter.ColorFilter;
@@ -27,14 +27,16 @@ public class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-
-        // Controller
-        this.controller = new ControllerClothing(this);
-        this.controller.loadComboColors(jComboColor, jFilterColor);
-        this.controller.loadComboCategories(jComboCategory, jFilterCategory);
-
-        //  Obetém o CardLayout para alternar entre painéis
-        cardLayout = (CardLayout) (panelCards.getLayout());
+        try {
+            // Controller
+            this.controller = new ControllerClothing(this);
+            this.controller.loadComboColors(jComboColor, jFilterColor);
+            this.controller.loadComboCategories(jComboCategory, jFilterCategory);
+            //  Obetém o CardLayout para alternar entre painéis
+            cardLayout = (CardLayout) (panelCards.getLayout());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
 
     // Métodos
@@ -45,7 +47,7 @@ public class MainScreen extends javax.swing.JFrame {
 
             for (Clothing clothing : clothes) {
                 int row = model.getRowCount();
-                model.addRow(new Object[0]); // Adiciona uma nova linha vazia
+                model.addRow(new Object[0]);
 
                 // Define os valores nas colunas especificadas
                 model.setValueAt(clothing.getId(), row, 0);
@@ -58,7 +60,6 @@ public class MainScreen extends javax.swing.JFrame {
                 model.setValueAt(clothing.isConsigned() ? "Sim" : "Não", row, 7);
                 model.setValueAt(clothing.isNewClothes() ? "Sim" : "Não", row, 8);
                 model.setValueAt(clothing.getCustomerName(), row, 9);
-
             }
             // Habilita opção de ordenar tabela pelo Header e adiciona R$ em Preço
             sortTable();
@@ -70,7 +71,6 @@ public class MainScreen extends javax.swing.JFrame {
     // Adicionar filtro no Header da tabela
     private void sortTable() {
         TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(jTableClothes.getModel());
-
         // Para a coluna de preço, adiciona R$
         for (int row = 0; row < jTableClothes.getRowCount(); row++) {
             Object value = jTableClothes.getValueAt(row, 2);
@@ -79,7 +79,6 @@ public class MainScreen extends javax.swing.JFrame {
                 jTableClothes.setValueAt(formattedValue, row, 2);
             }
         }
-
         // Comparador numérico para colunas com número
         Comparator<Object> numericComparator = (Object obj1, Object obj2) -> {
             String str1 = obj1.toString().replaceAll("[^0-9.]", "");
@@ -89,44 +88,34 @@ public class MainScreen extends javax.swing.JFrame {
             Double num2 = Double.valueOf(str2);
             return Double.compare(num1, num2);
         };
-
         // Seleciona ordenas as colunas desejadas
         rowSorter.setComparator(2, numericComparator);
         rowSorter.setComparator(0, numericComparator);
-
         // Ordena a tabela como um todo
         jTableClothes.setRowSorter(rowSorter);
     }
 
-    // Definir dados nos campos
-    private void setFields() {
+    // Quando boolean for TRUE, limpa os campos, quando for FALSE, pega os dados de selectedClothing e coloca nos campos
+    private void updateFields(boolean clearFields) {
         // Texto
-        textName.setText(selectedClothing.getName());
-        textDescription.setText(selectedClothing.getDescription());
-        textCustomerName.setText(selectedClothing.getCustomerName());
-        textPrice.setText(String.valueOf(selectedClothing.getPrice()));
+        textName.setText(!clearFields ? selectedClothing.getName() : "");
+        textDescription.setText(!clearFields ? selectedClothing.getDescription() : "");
+        textCustomerName.setText(!clearFields ? selectedClothing.getCustomerName() : "");
+        textPrice.setText(!clearFields ? String.valueOf(selectedClothing.getPrice()) : "");
         // ComboBox
-        jComboCategory.setSelectedItem(selectedClothing.getCategory());
-        jComboColor.setSelectedItem(selectedClothing.getColor());
-        jComboSize.setSelectedItem(selectedClothing.getSize());
+        jComboCategory.setSelectedItem(!clearFields ? selectedClothing.getCategory() : "Todas");
+        jComboColor.setSelectedItem(!clearFields ? selectedClothing.getColor() : "Todas");
+        jComboSize.setSelectedItem(!clearFields ? selectedClothing.getSize() : "Todos");
         // CheckBox
-        (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
-        (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
-    }
-
-    // Remover dados nos campos
-    public void clearFields() {
-        textName.setText("");
-        textDescription.setText("");
-        jComboCategory.setSelectedIndex(0);
-        jComboSize.setSelectedIndex(0);
-        jComboColor.setSelectedIndex(0);
-        textPrice.setText("");
-        jCheckConsigned.setSelected(false);
-        jCheckNewClothing.setSelected(false);
-        jCheckNo1.setSelected(false);
-        jCheckNo2.setSelected(false);
-        textCustomerName.setText("");
+        if (!clearFields) {
+            (selectedClothing.isConsigned() ? jCheckConsigned : jCheckNo1).setSelected(true);
+            (selectedClothing.isNewClothes() ? jCheckNewClothing : jCheckNo2).setSelected(true);
+        } else {
+            jCheckConsigned.setSelected(false);
+            jCheckNewClothing.setSelected(false);
+            jCheckNo1.setSelected(false);
+            jCheckNo2.setSelected(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -825,14 +814,14 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jBtnViewClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnViewClothesActionPerformed
         cardLayout.show(panelCards, "cardView");
-        clearFields();
+        updateFields(true);
         selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnViewClothesActionPerformed
 
     private void jBtnAddClothesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddClothesActionPerformed
         cardLayout.show(panelCards, "cardAdd");
         jLabelTitle.setText("Cadastrar Peça");
-        clearFields();
+        updateFields(true);
         selectedClothing.setId(-1);
     }//GEN-LAST:event_jBtnAddClothesActionPerformed
 
@@ -842,7 +831,7 @@ public class MainScreen extends javax.swing.JFrame {
                 // Comandos da tela
                 cardLayout.show(panelCards, "cardAdd");
                 jLabelTitle.setText("Editar Peça");
-                setFields();
+                updateFields(false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
@@ -899,7 +888,7 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Peça " + (clothingId == -1 ? "adicionada" : "editada") + " com sucesso", "Sucessso!", JOptionPane.INFORMATION_MESSAGE);
 
             // Limpa os Campos
-            clearFields();
+            updateFields(true);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -948,7 +937,7 @@ public class MainScreen extends javax.swing.JFrame {
                 // Double Click abre página de edição
                 cardLayout.show(panelCards, "cardAdd");
                 jLabelTitle.setText("Editar Peça");
-                setFields();
+                updateFields(false);
             }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -963,7 +952,7 @@ public class MainScreen extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             cardLayout.show(panelCards, "cardView");
             selectedClothing.setId(-1);
-            clearFields();
+            updateFields(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

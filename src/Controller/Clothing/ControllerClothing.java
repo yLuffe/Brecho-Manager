@@ -1,4 +1,4 @@
-package Controller;
+package Controller.Clothing;
 
 import Model.Clothing;
 import Model.ClothingDAO;
